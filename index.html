@@ -125,6 +125,37 @@
       background-color: #dc2626;
     }
 
+    /* Floating Action Button (FAB) */
+    .btn-floating-add {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      background-color: #059669;
+      color: #ffffff;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-floating-add:hover {
+      background-color: #047857;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.55);
+    }
+
+    .btn-floating-add:active {
+      transform: translateY(0);
+    }
+
     /* Header Branding */
     .report-header {
       text-align: center;
@@ -392,7 +423,8 @@
     .pdf-rendering .action-bar,
     .pdf-rendering .photo-actions,
     .pdf-rendering .upload-label,
-    .pdf-rendering .btn-delete-entry {
+    .pdf-rendering .btn-delete-entry,
+    .pdf-rendering .btn-floating-add {
       display: none !important;
     }
 
@@ -411,7 +443,7 @@
     @media print {
       @page { size: A4 landscape; margin: 8mm; }
       body { background: #ffffff; padding: 0; }
-      .action-bar, .photo-actions, .btn-delete-entry { display: none !important; }
+      .action-bar, .photo-actions, .btn-delete-entry, .btn-floating-add { display: none !important; }
       .audit-container { box-shadow: none; padding: 0; width: 100%; }
       .photo-frame { border: 1px solid #cbd5e1; }
     }
@@ -462,6 +494,11 @@
     </div>
 
   </div>
+
+  <!-- Floating Add Tanker Button -->
+  <button class="btn-floating-add" onclick="addTankerEntry()" title="Add New Tanker Entry">
+    ➕ Add Tanker Entry
+  </button>
 
   <script>
     let tankerCount = 0;
@@ -524,7 +561,7 @@
 
           <div class="entry-photos-grid">
             <div class="photo-box">
-              <div class="photo-box-header">Point 7: Top Water Level (Pre-Unload)</div>
+              <div class="photo-box-header">Top Water Level (Pre-Unload)</div>
               <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
               <div class="photo-frame">
                 <img id="img-p7-${currentId}">
@@ -537,7 +574,7 @@
             </div>
 
             <div class="photo-box">
-              <div class="photo-box-header">Point 8: Tanker Valve Open (Post-Unload)</div>
+              <div class="photo-box-header">Tanker Valve Open (Post-Unload)</div>
               <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
               <div class="photo-frame">
                 <img id="img-p8-${currentId}">
