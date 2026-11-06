@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Water Tanker Audit Log Report - Radisson Blu Plaza Hotel Mysore</title>
+  <title>Water Tanker Register - Radisson Blu Plaza Hotel Mysore</title>
   
   <!-- GitHub & Web Security Content-Security-Policy -->
   <meta http-equiv="Content-Security-Policy" 
@@ -65,6 +65,8 @@
       padding: 12px 16px;
       border-radius: 6px;
       border: 1px solid var(--border-gray);
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .save-status {
@@ -79,10 +81,11 @@
     .toolbar-buttons {
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .btn {
-      padding: 10px 18px;
+      padding: 10px 16px;
       font-size: 13px;
       font-weight: 700;
       border: none;
@@ -90,8 +93,17 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       transition: all 0.2s ease;
+    }
+
+    .btn-add {
+      background-color: #059669;
+      color: #ffffff;
+    }
+
+    .btn-add:hover {
+      background-color: #047857;
     }
 
     .btn-pdf {
@@ -136,17 +148,10 @@
       margin-top: 4px;
     }
 
-    .report-header .sub-tag {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 2px;
-      font-weight: 500;
-    }
-
     /* Metadata Grid */
     .metadata-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       background-color: var(--bg-light);
       padding: 14px;
@@ -184,128 +189,125 @@
       color: #334155;
     }
 
-    /* Log Table - Locked Pixel Widths for PDF Export Safety */
-    .table-responsive {
-      overflow-x: auto;
-      margin-bottom: 25px;
+    /* Dynamic Tanker Entry Cards Container */
+    .tanker-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    .log-table {
-      width: 100%;
-      min-width: 950px;
-      border-collapse: collapse;
-      font-size: 11px;
-      table-layout: fixed;
+    .tanker-card {
+      background: #ffffff;
+      border: 1px solid var(--border-gray);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
 
-    .log-table th {
+    .tanker-card-header {
       background-color: var(--primary-navy);
       color: #ffffff;
-      padding: 8px 6px;
-      text-align: center;
-      font-weight: 700;
-      border: 1px solid #0f2342;
-    }
-
-    .log-table td {
-      padding: 6px;
-      border: 1px solid var(--border-gray);
-      text-align: center;
-      vertical-align: middle;
-      word-wrap: break-word;
-    }
-
-    .log-table td.param-name {
-      text-align: left;
-      font-weight: 700;
-      background-color: var(--bg-light);
-      color: var(--primary-navy);
-    }
-
-    .log-table td.sno {
-      font-weight: 800;
-      background-color: var(--bg-light);
-    }
-
-    .log-table input {
-      width: 100%;
-      padding: 6px 4px;
-      font-size: 11px;
-      border: 1px solid #cbd5e1;
-      border-radius: 4px;
-      text-align: center;
-    }
-
-    .log-table input:focus {
-      border-color: var(--primary-navy);
-      outline: none;
-    }
-
-    .calc-row {
-      background-color: var(--accent-blue) !important;
-      font-weight: 800;
-    }
-
-    .calc-val {
-      color: var(--primary-navy);
-      font-weight: 800;
-      font-size: 12px;
-    }
-
-    /* Photo Verification Sections */
-    .photos-section {
-      margin-top: 25px;
-      page-break-before: always;
-      break-before: page;
-    }
-
-    .section-title {
-      background-color: var(--secondary-blue);
-      color: #ffffff;
-      padding: 8px 12px;
-      font-size: 12px;
-      font-weight: 700;
-      border-radius: 6px 6px 0 0;
+      padding: 10px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .photo-grid {
+    .tanker-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-delete-entry {
+      background: #ef4444;
+      color: #ffffff;
+      border: none;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-delete-entry:hover {
+      background: #b91c1c;
+    }
+
+    .tanker-card-body {
+      padding: 16px;
+    }
+
+    /* Entry Details Grid */
+    .entry-details-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      background: var(--bg-light);
+      grid-template-columns: 1.5fr 1.2fr 1.5fr 1fr 1fr;
+      gap: 12px;
+      background-color: var(--bg-light);
       padding: 12px;
       border: 1px solid var(--border-gray);
-      border-top: none;
-      border-radius: 0 0 6px 6px;
+      border-radius: 6px;
+      margin-bottom: 16px;
     }
 
-    .photo-card {
-      background: #ffffff;
-      border: 1px solid var(--border-gray);
-      border-radius: 6px;
-      padding: 6px;
+    .detail-item {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      min-width: 0;
+      gap: 4px;
     }
 
-    .photo-card-title {
+    .detail-item label {
       font-size: 10px;
       font-weight: 700;
       color: var(--primary-navy);
-      margin-bottom: 2px;
+      text-transform: uppercase;
+    }
+
+    .detail-item input {
+      padding: 7px 10px;
+      font-size: 12px;
+      border: 1px solid var(--border-gray);
+      border-radius: 4px;
+      background: #ffffff;
+      width: 100%;
+    }
+
+    /* Side-by-Side Photo Verification Pair */
+    .entry-photos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .photo-box {
+      border: 1px solid var(--border-gray);
+      border-radius: 6px;
+      padding: 10px;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .photo-box-header {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--secondary-blue);
+      text-transform: uppercase;
       text-align: center;
+      margin-bottom: 2px;
     }
 
     .photo-card-spec {
       font-size: 9px;
       font-weight: 600;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     /* 4R Standard Postcard Aspect Ratio Frame (3:2) */
@@ -331,25 +333,25 @@
     }
 
     .photo-placeholder {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--text-muted);
       text-align: center;
-      padding: 4px;
+      padding: 6px;
       font-weight: 500;
     }
 
     .photo-actions {
-      margin-top: 6px;
+      margin-top: 8px;
       width: 100%;
     }
 
     .upload-label {
       display: block;
       width: 100%;
-      padding: 6px 0;
+      padding: 8px 0;
       background-color: var(--primary-navy);
       color: #ffffff;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       text-align: center;
       border-radius: 4px;
@@ -365,20 +367,21 @@
       display: none;
     }
 
-    /* Mobile Portrait Responsive Adjustments */
+    /* Mobile Responsive Adjustments */
     @media (max-width: 768px) {
       body { padding: 10px; }
       .audit-container { padding: 15px; }
       .metadata-grid { grid-template-columns: repeat(2, 1fr); }
-      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .entry-details-grid { grid-template-columns: repeat(2, 1fr); }
+      .entry-photos-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 480px) {
       .metadata-grid { grid-template-columns: 1fr; }
-      .photo-grid { grid-template-columns: 1fr; }
+      .entry-details-grid { grid-template-columns: 1fr; }
     }
 
-    /* PDF Rendering & Print Enforcements */
+    /* PDF Rendering Enforcements */
     .pdf-rendering {
       width: 1050px !important;
       max-width: 1050px !important;
@@ -388,22 +391,27 @@
 
     .pdf-rendering .action-bar,
     .pdf-rendering .photo-actions,
-    .pdf-rendering .upload-label {
+    .pdf-rendering .upload-label,
+    .pdf-rendering .btn-delete-entry {
       display: none !important;
     }
 
     .pdf-rendering .metadata-grid {
-      grid-template-columns: repeat(4, 1fr) !important;
+      grid-template-columns: repeat(2, 1fr) !important;
     }
 
-    .pdf-rendering .photo-grid {
-      grid-template-columns: repeat(5, 1fr) !important;
+    .pdf-rendering .entry-details-grid {
+      grid-template-columns: 1.5fr 1.2fr 1.5fr 1fr 1fr !important;
+    }
+
+    .pdf-rendering .entry-photos-grid {
+      grid-template-columns: 1fr 1fr !important;
     }
 
     @media print {
       @page { size: A4 landscape; margin: 8mm; }
       body { background: #ffffff; padding: 0; }
-      .action-bar, .photo-actions { display: none !important; }
+      .action-bar, .photo-actions, .btn-delete-entry { display: none !important; }
       .audit-container { box-shadow: none; padding: 0; width: 100%; }
       .photo-frame { border: 1px solid #cbd5e1; }
     }
@@ -419,6 +427,7 @@
         ✓ Auto-Saved to local storage
       </div>
       <div class="toolbar-buttons">
+        <button class="btn btn-add" onclick="addTankerEntry()">➕ Add Tanker Entry</button>
         <button class="btn btn-pdf" onclick="downloadPDF()">📄 Export to PDF</button>
         <button class="btn btn-reset" onclick="resetDraft()">🗑️ Reset Draft</button>
       </div>
@@ -427,8 +436,7 @@
     <!-- Header Branding -->
     <div class="report-header">
       <h1>Radisson Blu Plaza Hotel Mysore</h1>
-      <h2>Water Tanker Audit Log Report & Photographic Verification</h2>
-      <div class="sub-tag">Loss Prevention & Facility Maintenance Compliance Log</div>
+      <h2>Water Tanker Register</h2>
     </div>
 
     <!-- Metadata Grid -->
@@ -436,14 +444,6 @@
       <div class="meta-item">
         <label for="auditDate">Date of Inspection</label>
         <input type="date" id="auditDate" onchange="triggerAutoSave()">
-      </div>
-      <div class="meta-item">
-        <label for="inspectorName">Person Who Checked Tanker</label>
-        <input type="text" id="inspectorName" placeholder="Enter Inspector Name" oninput="triggerAutoSave()">
-      </div>
-      <div class="meta-item">
-        <label for="receivingLocation">Gate / Receiving Location</label>
-        <input type="text" id="receivingLocation" value="Receiving Bay" readonly>
       </div>
       <div class="meta-item">
         <label for="dutyShift">Duty Shift</label>
@@ -456,246 +456,149 @@
       </div>
     </div>
 
-    <!-- Operational Log Table -->
-    <div class="table-responsive">
-      <table class="log-table">
-        <thead>
-          <tr>
-            <th style="width: 35px;">S.No</th>
-            <th style="width: 240px;">Inspection Parameter Description</th>
-            <th style="width: 100px;">Tanker 1</th>
-            <th style="width: 100px;">Tanker 2</th>
-            <th style="width: 100px;">Tanker 3</th>
-            <th style="width: 100px;">Tanker 4</th>
-            <th style="width: 100px;">Tanker 5</th>
-            <th style="width: 150px;">Audit Remarks</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="sno">1</td>
-            <td class="param-name">Vendor / Supplier Name</td>
-            <td><input type="text" placeholder="Vendor 1" oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Vendor 2" oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Vendor 3" oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Vendor 4" oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Vendor 5" oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Remarks" oninput="triggerAutoSave()"></td>
-          </tr>
-          <tr>
-            <td class="sno">2</td>
-            <td class="param-name">Vehicle Registration No.</td>
-            <td><input type="text" placeholder="Vehicle No." oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Vehicle No." oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Vehicle No." oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Vehicle No." oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Vehicle No." oninput="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Plate check" oninput="triggerAutoSave()"></td>
-          </tr>
-          <tr>
-            <td class="sno">3</td>
-            <td class="param-name">Time-In (Gate Entry)</td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Entry log" oninput="triggerAutoSave()"></td>
-          </tr>
-          <tr>
-            <td class="sno">4</td>
-            <td class="param-name">Start Flow Meter Reading (Liters / KL)</td>
-            <td><input type="number" class="start-val" data-tanker="1" oninput="calcNet(1)" placeholder="0"></td>
-            <td><input type="number" class="start-val" data-tanker="2" oninput="calcNet(2)" placeholder="0"></td>
-            <td><input type="number" class="start-val" data-tanker="3" oninput="calcNet(3)" placeholder="0"></td>
-            <td><input type="number" class="start-val" data-tanker="4" oninput="calcNet(4)" placeholder="0"></td>
-            <td><input type="number" class="start-val" data-tanker="5" oninput="calcNet(5)" placeholder="0"></td>
-            <td><input type="text" placeholder="Initial reading" oninput="triggerAutoSave()"></td>
-          </tr>
-          <tr>
-            <td class="sno">5</td>
-            <td class="param-name">End Flow Meter Reading (Liters / KL)</td>
-            <td><input type="number" class="end-val" data-tanker="1" oninput="calcNet(1)" placeholder="0"></td>
-            <td><input type="number" class="end-val" data-tanker="2" oninput="calcNet(2)" placeholder="0"></td>
-            <td><input type="number" class="end-val" data-tanker="3" oninput="calcNet(3)" placeholder="0"></td>
-            <td><input type="number" class="end-val" data-tanker="4" oninput="calcNet(4)" placeholder="0"></td>
-            <td><input type="number" class="end-val" data-tanker="5" oninput="calcNet(5)" placeholder="0"></td>
-            <td><input type="text" placeholder="Final reading" oninput="triggerAutoSave()"></td>
-          </tr>
-          <tr class="calc-row">
-            <td class="sno">CALC</td>
-            <td class="param-name">Net Volume Discharged (End - Start)</td>
-            <td class="calc-val" id="net-1">0 L</td>
-            <td class="calc-val" id="net-2">0 L</td>
-            <td class="calc-val" id="net-3">0 L</td>
-            <td class="calc-val" id="net-4">0 L</td>
-            <td class="calc-val" id="net-5">0 L</td>
-            <td class="calc-val" id="net-total">Total: 0 L</td>
-          </tr>
-          <tr>
-            <td class="sno">6</td>
-            <td class="param-name">Time-Out (Gate Exit)</td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="time" onchange="triggerAutoSave()"></td>
-            <td><input type="text" placeholder="Exit log" oninput="triggerAutoSave()"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Photographic Evidence Section -->
-    <div class="photos-section">
-      
-      <!-- Point 7 -->
-      <div class="section-title">
-        <span>POINT 7: TOP WATER LEVEL PHOTOGRAPHIC EVIDENCE (PRE-UNLOADING DECK CHECK)</span>
-        <span>POINT 7</span>
-      </div>
-      <div class="photo-grid">
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 1 - Top Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p7-1"><div class="photo-placeholder" id="ph-p7-1">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p7-1" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p7-1" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 1)">
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 2 - Top Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p7-2"><div class="photo-placeholder" id="ph-p7-2">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p7-2" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p7-2" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 2)">
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 3 - Top Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p7-3"><div class="photo-placeholder" id="ph-p7-3">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p7-3" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p7-3" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 3)">
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 4 - Top Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p7-4"><div class="photo-placeholder" id="ph-p7-4">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p7-4" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p7-4" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 4)">
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 5 - Top Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p7-5"><div class="photo-placeholder" id="ph-p7-5">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p7-5" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p7-5" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 5)">
-          </div>
-        </div>
-      </div>
-
-      <!-- Point 8 -->
-      <div class="section-title" style="margin-top: 25px;">
-        <span>POINT 8: BOTTOM WATER LEVEL PHOTOGRAPHIC EVIDENCE (POST-UNLOADING DECK CHECK)</span>
-        <span>POINT 8</span>
-      </div>
-      <div class="photo-grid">
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 1 - Bottom Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p8-1"><div class="photo-placeholder" id="ph-p8-1">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p8-1" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p8-1" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 1)">
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 2 - Bottom Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p8-2"><div class="photo-placeholder" id="ph-p8-2">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p8-2" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p8-2" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 2)">
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 3 - Bottom Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p8-3"><div class="photo-placeholder" id="ph-p8-3">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p8-3" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p8-3" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 3)">
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 4 - Bottom Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p8-4"><div class="photo-placeholder" id="ph-p8-4">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p8-4" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p8-4" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 4)">
-          </div>
-        </div>
-
-        <div class="photo-card">
-          <div class="photo-card-title">Tanker 5 - Bottom Level</div>
-          <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-          <div class="photo-frame"><img id="img-p8-5"><div class="photo-placeholder" id="ph-p8-5">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
-          <div class="photo-actions">
-            <label for="file-p8-5" class="upload-label">📷 Snap Photo</label>
-            <input type="file" id="file-p8-5" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 5)">
-          </div>
-        </div>
-      </div>
-
+    <!-- Dynamic Tanker Entries Container -->
+    <div class="tanker-list" id="tankerListContainer">
+      <!-- Dynamic Tanker Entry Cards will be generated here -->
     </div>
 
   </div>
 
   <script>
+    let tankerCount = 0;
+
     // Initialize & Restore Auto-Save Data
     document.addEventListener('DOMContentLoaded', () => {
       const auditDateInput = document.getElementById('auditDate');
       if (auditDateInput && !auditDateInput.value) {
         auditDateInput.valueAsDate = new Date();
       }
-      loadSavedDraft();
+
+      const hasSavedData = loadSavedDraft();
+      if (!hasSavedData) {
+        // Default: Add 2 clean Tanker Entries to start
+        addTankerEntry();
+        addTankerEntry();
+      }
     });
 
-    // Auto-calculate Net Discharged Volume
-    function calcNet(tankerId) {
-      const startInputs = document.querySelectorAll('.start-val');
-      const endInputs = document.querySelectorAll('.end-val');
-      
-      let start = parseFloat(startInputs[tankerId - 1].value) || 0;
-      let end = parseFloat(endInputs[tankerId - 1].value) || 0;
-      
-      let net = end >= start ? (end - start) : 0;
-      document.getElementById(`net-${tankerId}`).textContent = net.toLocaleString() + ' L';
+    // Add New Dynamic Tanker Entry Card
+    function addTankerEntry(savedData = null) {
+      tankerCount++;
+      const currentId = tankerCount;
 
-      let total = 0;
-      for(let i=1; i<=5; i++) {
-        let s = parseFloat(startInputs[i - 1].value) || 0;
-        let e = parseFloat(endInputs[i - 1].value) || 0;
-        if(e >= s) total += (e - s);
+      const card = document.createElement('div');
+      card.className = 'tanker-card';
+      card.id = `tanker-card-${currentId}`;
+
+      card.innerHTML = `
+        <div class="tanker-card-header">
+          <div class="tanker-card-title">
+            <span>🚛</span>
+            <span class="tanker-label">Tanker #${currentId}</span>
+          </div>
+          <button class="btn-delete-entry" onclick="removeTankerEntry(${currentId})">✕ Delete Entry</button>
+        </div>
+        <div class="tanker-card-body">
+          <div class="entry-details-grid">
+            <div class="detail-item">
+              <label>Vendor / Supplier Name</label>
+              <input type="text" id="vendor-${currentId}" placeholder="Enter Vendor Name" oninput="triggerAutoSave()">
+            </div>
+            <div class="detail-item">
+              <label>Vehicle Reg. No.</label>
+              <input type="text" id="vehicle-${currentId}" placeholder="e.g. KA-09-AB-1234" oninput="triggerAutoSave()">
+            </div>
+            <div class="detail-item">
+              <label>Person Who Checked</label>
+              <input type="text" id="inspector-${currentId}" placeholder="Inspector Name" oninput="triggerAutoSave()">
+            </div>
+            <div class="detail-item">
+              <label>Time-In</label>
+              <input type="time" id="timein-${currentId}" onchange="triggerAutoSave()">
+            </div>
+            <div class="detail-item">
+              <label>Time-Out</label>
+              <input type="time" id="timeout-${currentId}" onchange="triggerAutoSave()">
+            </div>
+          </div>
+
+          <div class="entry-photos-grid">
+            <div class="photo-box">
+              <div class="photo-box-header">Point 7: Top Water Level (Pre-Unload)</div>
+              <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
+              <div class="photo-frame">
+                <img id="img-p7-${currentId}">
+                <div class="photo-placeholder" id="ph-p7-${currentId}">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div>
+              </div>
+              <div class="photo-actions">
+                <label for="file-p7-${currentId}" class="upload-label">📷 Snap Photo</label>
+                <input type="file" id="file-p7-${currentId}" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', ${currentId})">
+              </div>
+            </div>
+
+            <div class="photo-box">
+              <div class="photo-box-header">Point 8: Tanker Valve Open (Post-Unload)</div>
+              <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
+              <div class="photo-frame">
+                <img id="img-p8-${currentId}">
+                <div class="photo-placeholder" id="ph-p8-${currentId}">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div>
+              </div>
+              <div class="photo-actions">
+                <label for="file-p8-${currentId}" class="upload-label">📷 Snap Photo</label>
+                <input type="file" id="file-p8-${currentId}" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', ${currentId})">
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('tankerListContainer').appendChild(card);
+
+      if (savedData) {
+        if (savedData.vendor) document.getElementById(`vendor-${currentId}`).value = savedData.vendor;
+        if (savedData.vehicle) document.getElementById(`vehicle-${currentId}`).value = savedData.vehicle;
+        if (savedData.inspector) document.getElementById(`inspector-${currentId}`).value = savedData.inspector;
+        if (savedData.timein) document.getElementById(`timein-${currentId}`).value = savedData.timein;
+        if (savedData.timeout) document.getElementById(`timeout-${currentId}`).value = savedData.timeout;
+
+        if (savedData.imgP7) {
+          const img = document.getElementById(`img-p7-${currentId}`);
+          const ph = document.getElementById(`ph-p7-${currentId}`);
+          img.src = savedData.imgP7;
+          img.style.display = 'block';
+          ph.style.display = 'none';
+        }
+
+        if (savedData.imgP8) {
+          const img = document.getElementById(`img-p8-${currentId}`);
+          const ph = document.getElementById(`ph-p8-${currentId}`);
+          img.src = savedData.imgP8;
+          img.style.display = 'block';
+          ph.style.display = 'none';
+        }
       }
-      document.getElementById('net-total').textContent = 'Total: ' + total.toLocaleString() + ' L';
+
+      updateTankerLabels();
       triggerAutoSave();
+    }
+
+    // Remove Tanker Entry Card
+    function removeTankerEntry(id) {
+      const card = document.getElementById(`tanker-card-${id}`);
+      if (card) {
+        card.remove();
+        updateTankerLabels();
+        triggerAutoSave();
+      }
+    }
+
+    // Renumber Header Labels (Tanker #1, Tanker #2, ...)
+    function updateTankerLabels() {
+      const cards = document.querySelectorAll('.tanker-card');
+      cards.forEach((card, idx) => {
+        const label = card.querySelector('.tanker-label');
+        if (label) label.textContent = `Tanker #${idx + 1}`;
+      });
     }
 
     // Process Image & Burn Lossless High-Clarity Timestamp Watermark
@@ -708,20 +611,17 @@
       reader.onload = function (e) {
         const img = new Image();
         img.onload = function () {
-          // Optimized 4R Standard (1500x1000 px @ High Density) for crisp clarity & lightweight PDF file size (< 10 MB)
+          // Optimized 4R Standard (1500x1000 px @ High Density)
           const canvas = document.createElement('canvas');
           canvas.width = 1500;
           canvas.height = 1000;
           const ctx = canvas.getContext('2d');
 
-          // Maximum Quality Smoothing Settings
           ctx.imageSmoothingEnabled = true;
           ctx.imageSmoothingQuality = 'high';
 
-          // Draw High Resolution Image
           ctx.drawImage(img, 0, 0, 1500, 1000);
 
-          // Timestamp Data (Date & Time)
           const now = new Date();
           const dateStr = now.toLocaleDateString('en-GB'); // DD/MM/YYYY
           const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
@@ -734,25 +634,17 @@
           ctx.fillStyle = '#FFD700';
           ctx.fillRect(0, 872, 1500, 8);
 
-          // Extra Large Crisp Bold Timestamp Text (Slightly adjusted size to prevent edge clipping)
+          // Crisp Timestamp Text
           ctx.fillStyle = '#FFD700';
           ctx.font = 'bold 42px Inter, Arial, sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText(`DATE: ${dateStr}   |   TIME: ${timeStr}`, 750, 940);
 
-          // High-Quality JPEG (0.88 quality) for sharp details with 90% smaller file size than raw PNG
           const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
 
           const targetImg = document.getElementById(`img-${point}-${tankerId}`);
           const targetPh = document.getElementById(`ph-${point}-${tankerId}`);
-
-          // Remove any external timestamp badge element if present in DOM
-          const card = targetImg.closest('.photo-card');
-          if (card) {
-            const existingBadge = card.querySelector('.timestamp-badge');
-            if (existingBadge) existingBadge.remove();
-          }
 
           targetImg.src = dataUrl;
           targetImg.style.display = 'block';
@@ -770,30 +662,38 @@
     function triggerAutoSave() {
       const data = {
         date: document.getElementById('auditDate').value,
-        inspector: document.getElementById('inspectorName').value,
         shift: document.getElementById('dutyShift').value,
-        inputs: [],
-        images: {}
+        entries: []
       };
 
-      const allInputs = document.querySelectorAll('.log-table input');
-      allInputs.forEach((inp, idx) => {
-        data.inputs.push(inp.value);
-      });
+      const cards = document.querySelectorAll('.tanker-card');
+      cards.forEach(card => {
+        const id = card.id.replace('tanker-card-', '');
+        const entryData = {
+          vendor: document.getElementById(`vendor-${id}`)?.value || '',
+          vehicle: document.getElementById(`vehicle-${id}`)?.value || '',
+          inspector: document.getElementById(`inspector-${id}`)?.value || '',
+          timein: document.getElementById(`timein-${id}`)?.value || '',
+          timeout: document.getElementById(`timeout-${id}`)?.value || '',
+          imgP7: '',
+          imgP8: ''
+        };
 
-      ['p7', 'p8'].forEach(point => {
-        for(let i=1; i<=5; i++) {
-          const img = document.getElementById(`img-${point}-${i}`);
-          if (img && img.src && img.style.display !== 'none') {
-            data.images[`${point}-${i}`] = {
-              src: img.src
-            };
-          }
+        const imgP7 = document.getElementById(`img-p7-${id}`);
+        if (imgP7 && imgP7.src && imgP7.style.display !== 'none') {
+          entryData.imgP7 = imgP7.src;
         }
+
+        const imgP8 = document.getElementById(`img-p8-${id}`);
+        if (imgP8 && imgP8.src && imgP8.style.display !== 'none') {
+          entryData.imgP8 = imgP8.src;
+        }
+
+        data.entries.push(entryData);
       });
 
       try {
-        localStorage.setItem('water_tanker_audit_draft', JSON.stringify(data));
+        localStorage.setItem('water_tanker_register_draft', JSON.stringify(data));
         const statusEl = document.getElementById('saveStatus');
         if (statusEl) {
           const now = new Date();
@@ -805,63 +705,42 @@
     }
 
     function loadSavedDraft() {
-      const savedStr = localStorage.getItem('water_tanker_audit_draft');
-      if (!savedStr) return;
+      const savedStr = localStorage.getItem('water_tanker_register_draft');
+      if (!savedStr) return false;
 
       try {
         const data = JSON.parse(savedStr);
         if (data.date) document.getElementById('auditDate').value = data.date;
-        if (data.inspector) document.getElementById('inspectorName').value = data.inspector;
         if (data.shift) document.getElementById('dutyShift').value = data.shift;
 
-        const allInputs = document.querySelectorAll('.log-table input');
-        if (data.inputs && data.inputs.length === allInputs.length) {
-          allInputs.forEach((inp, idx) => {
-            inp.value = data.inputs[idx];
+        if (data.entries && data.entries.length > 0) {
+          document.getElementById('tankerListContainer').innerHTML = '';
+          tankerCount = 0;
+          data.entries.forEach(entry => {
+            addTankerEntry(entry);
           });
-          for(let i=1; i<=5; i++) calcNet(i);
-        }
-
-        if (data.images) {
-          Object.keys(data.images).forEach(key => {
-            const [point, id] = key.split('-');
-            const img = document.getElementById(`img-${point}-${id}`);
-            const ph = document.getElementById(`ph-${point}-${id}`);
-            if (img && data.images[key].src) {
-              const card = img.closest('.photo-card');
-              if (card) {
-                const existingBadge = card.querySelector('.timestamp-badge');
-                if (existingBadge) existingBadge.remove();
-              }
-              img.src = data.images[key].src;
-              img.style.display = 'block';
-              if (ph) ph.style.display = 'none';
-            }
-          });
+          return true;
         }
       } catch (e) {
         console.error('Failed to parse saved draft:', e);
       }
+      return false;
     }
 
     function resetDraft() {
-      if (confirm("Are you sure you want to clear the entire report draft?")) {
-        localStorage.removeItem('water_tanker_audit_draft');
+      if (confirm("Are you sure you want to clear all tanker entries and reset the draft?")) {
+        localStorage.removeItem('water_tanker_register_draft');
         location.reload();
       }
     }
 
-    // Ultra-High Resolution PDF Export Function (Optimized for Email < 10 MB)
+    // PDF Export Function (Optimized for Landscape & Email < 10 MB)
     function downloadPDF() {
       const element = document.getElementById('reportContent');
       const dateStr = document.getElementById('auditDate').value || 'Log';
 
-      // Temporarily enforce desktop landscape layout & hide snap buttons
       element.classList.add('pdf-rendering');
-      const photoActionButtons = element.querySelectorAll('.photo-actions, .upload-label');
-      photoActionButtons.forEach(btn => btn.style.display = 'none');
 
-      // Dynamically sync user input values into DOM attributes for 100% canvas rendering fidelity
       const inputs = element.querySelectorAll('input, select');
       inputs.forEach(input => {
         if (input.tagName === 'SELECT') {
@@ -874,7 +753,7 @@
 
       const opt = {
         margin:       [6, 6, 6, 6],
-        filename:     `Water_Tanker_Audit_Report_${dateStr}.pdf`,
+        filename:     `Water_Tanker_Register_${dateStr}.pdf`,
         image:        { type: 'jpeg', quality: 0.92 },
         html2canvas:  { scale: 2, useCORS: true, logging: false, windowWidth: 1050, imageTimeout: 0 },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
@@ -886,12 +765,10 @@
 
       html2pdf().set(opt).from(element).save().then(() => {
         element.classList.remove('pdf-rendering');
-        photoActionButtons.forEach(btn => btn.style.display = '');
         if (actionBar) actionBar.style.display = 'flex';
       }).catch(err => {
         console.error('PDF export error:', err);
         element.classList.remove('pdf-rendering');
-        photoActionButtons.forEach(btn => btn.style.display = '');
         if (actionBar) actionBar.style.display = 'flex';
       });
     }
