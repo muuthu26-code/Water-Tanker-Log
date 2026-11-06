@@ -316,12 +316,52 @@
       font-size: 11px;
       font-weight: 700;
       color: var(--primary-navy);
-      margin-bottom: 6px;
+      margin-bottom: 2px;
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
+    }
+
+    .photo-card-subtitle {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    /* Postcard 3:2 Ratio Frame (4R / 4x6 in - 102x152 mm) */
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      background-color: #f1f5f9;
+      border: 1px dashed #94a3b8;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+
+    .photo-placeholder {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 5px;
+      line-height: 1.3;
     }
 
     .upload-label {
@@ -632,7 +672,8 @@
       <div class="photo-grid">
         <div class="photo-card">
           <div class="photo-card-title">Tanker 1 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-1"><div class="photo-placeholder" id="ph-p7-1">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p7-1"><div class="photo-placeholder" id="ph-p7-1">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p7-1" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-1" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 1)">
@@ -641,7 +682,8 @@
 
         <div class="photo-card">
           <div class="photo-card-title">Tanker 2 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-2"><div class="photo-placeholder" id="ph-p7-2">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p7-2"><div class="photo-placeholder" id="ph-p7-2">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p7-2" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-2" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 2)">
@@ -650,7 +692,8 @@
 
         <div class="photo-card">
           <div class="photo-card-title">Tanker 3 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-3"><div class="photo-placeholder" id="ph-p7-3">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p7-3"><div class="photo-placeholder" id="ph-p7-3">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p7-3" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-3" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 3)">
@@ -659,7 +702,8 @@
 
         <div class="photo-card">
           <div class="photo-card-title">Tanker 4 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-4"><div class="photo-placeholder" id="ph-p7-4">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p7-4"><div class="photo-placeholder" id="ph-p7-4">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p7-4" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-4" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 4)">
@@ -668,7 +712,8 @@
 
         <div class="photo-card">
           <div class="photo-card-title">Tanker 5 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-5"><div class="photo-placeholder" id="ph-p7-5">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p7-5"><div class="photo-placeholder" id="ph-p7-5">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p7-5" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-5" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 5)">
@@ -684,7 +729,8 @@
       <div class="photo-grid">
         <div class="photo-card">
           <div class="photo-card-title">Tanker 1 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-1"><div class="photo-placeholder" id="ph-p8-1">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p8-1"><div class="photo-placeholder" id="ph-p8-1">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p8-1" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-1" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 1)">
@@ -693,7 +739,8 @@
 
         <div class="photo-card">
           <div class="photo-card-title">Tanker 2 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-2"><div class="photo-placeholder" id="ph-p8-2">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p8-2"><div class="photo-placeholder" id="ph-p8-2">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p8-2" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-2" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 2)">
@@ -702,7 +749,8 @@
 
         <div class="photo-card">
           <div class="photo-card-title">Tanker 3 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-3"><div class="photo-placeholder" id="ph-p8-3">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p8-3"><div class="photo-placeholder" id="ph-p8-3">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p8-3" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-3" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 3)">
@@ -711,7 +759,8 @@
 
         <div class="photo-card">
           <div class="photo-card-title">Tanker 4 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-4"><div class="photo-placeholder" id="ph-p8-4">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p8-4"><div class="photo-placeholder" id="ph-p8-4">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p8-4" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-4" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 4)">
@@ -720,7 +769,8 @@
 
         <div class="photo-card">
           <div class="photo-card-title">Tanker 5 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-5"><div class="photo-placeholder" id="ph-p8-5">Postcard (3:2)</div></div>
+          <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
+          <div class="photo-frame"><img id="img-p8-5"><div class="photo-placeholder" id="ph-p8-5">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
           <div class="photo-actions">
             <label for="cam-p8-5" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-5" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 5)">
