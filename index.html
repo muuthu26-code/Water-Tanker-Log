@@ -734,9 +734,9 @@
           ctx.fillStyle = '#FFD700';
           ctx.fillRect(0, 872, 1500, 8);
 
-          // Extra Large Crisp Bold Timestamp Text
+          // Extra Large Crisp Bold Timestamp Text (Slightly adjusted size to prevent edge clipping)
           ctx.fillStyle = '#FFD700';
-          ctx.font = 'bold 50px Inter, Arial, sans-serif';
+          ctx.font = 'bold 42px Inter, Arial, sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText(`DATE: ${dateStr}   |   TIME: ${timeStr}`, 750, 940);
