@@ -1,888 +1,699 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Water Tanker Register - Radisson Blu Plaza Hotel Mysore</title>
-  
-  <!-- GitHub & Web Security Content-Security-Policy -->
-  <meta http-equiv="Content-Security-Policy" 
-        content="default-src 'self'; 
-                 script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://unpkg.com; 
-                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; 
-                 font-src 'self' https://fonts.gstatic.com; 
-                 img-src 'self' data: blob:; 
-                 object-src 'none'; 
-                 base-uri 'self';">
-
-  <!-- External PDF Generation Engine -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --primary-navy: #1b365d;
-      --secondary-blue: #2b547e;
-      --accent-blue: #e8eef5;
-      --border-gray: #cbd5e1;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --bg-light: #f8fafc;
-      --gold-accent: #d97706;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-    }
-
-    body {
-      background-color: #f1f5f9;
-      color: var(--text-main);
-      padding: 20px;
-    }
-
-    /* Container & Printable Page Base */
-    .audit-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      padding: 30px;
-      position: relative;
-    }
-
-    /* Action Toolbar */
-    .action-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      background: #ffffff;
-      padding: 12px 16px;
-      border-radius: 6px;
-      border: 1px solid var(--border-gray);
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .save-status {
-      font-size: 13px;
-      font-weight: 600;
-      color: #059669;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .toolbar-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 10px 16px;
-      font-size: 13px;
-      font-weight: 700;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-add {
-      background-color: #059669;
-      color: #ffffff;
-    }
-
-    .btn-add:hover {
-      background-color: #047857;
-    }
-
-    .btn-pdf {
-      background-color: var(--primary-navy);
-      color: #ffffff;
-      box-shadow: 0 2px 5px rgba(27, 54, 93, 0.2);
-    }
-
-    .btn-pdf:hover {
-      background-color: #122440;
-    }
-
-    .btn-reset {
-      background-color: #ef4444;
-      color: #ffffff;
-    }
-
-    .btn-reset:hover {
-      background-color: #dc2626;
-    }
-
-    /* Floating Action Button (FAB) */
-    .btn-floating-add {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 1000;
-      background-color: #059669;
-      color: #ffffff;
-      padding: 12px 20px;
-      font-size: 14px;
-      font-weight: 700;
-      border: none;
-      border-radius: 50px;
-      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.25s ease;
-    }
-
-    .btn-floating-add:hover {
-      background-color: #047857;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.55);
-    }
-
-    .btn-floating-add:active {
-      transform: translateY(0);
-    }
-
-    /* Header Branding */
-    .report-header {
-      text-align: center;
-      border-bottom: 2px solid var(--primary-navy);
-      padding-bottom: 15px;
-      margin-bottom: 20px;
-    }
-
-    .report-header h1 {
-      color: var(--primary-navy);
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .report-header h2 {
-      color: var(--secondary-blue);
-      font-size: 14px;
-      font-weight: 600;
-      margin-top: 4px;
-    }
-
-    /* Metadata Grid */
-    .metadata-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      background-color: var(--bg-light);
-      padding: 14px;
-      border-radius: 6px;
-      border: 1px solid var(--border-gray);
-      margin-bottom: 20px;
-    }
-
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .meta-item label {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--primary-navy);
-      text-transform: uppercase;
-    }
-
-    .meta-item input, .meta-item select {
-      padding: 8px 10px;
-      font-size: 12px;
-      border: 1px solid var(--border-gray);
-      border-radius: 4px;
-      background-color: #ffffff;
-      color: var(--text-main);
-    }
-
-    .meta-item input[readonly] {
-      background-color: #e2e8f0;
-      cursor: not-allowed;
-      font-weight: 700;
-      color: #334155;
-    }
-
-    /* Dynamic Tanker Entry Cards Container */
-    .tanker-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .tanker-card {
-      background: #ffffff;
-      border: 1px solid var(--border-gray);
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      overflow: hidden;
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    .tanker-card-header {
-      background-color: var(--primary-navy);
-      color: #ffffff;
-      padding: 10px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .tanker-card-title {
-      font-size: 14px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-delete-entry {
-      background: #ef4444;
-      color: #ffffff;
-      border: none;
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 700;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn-delete-entry:hover {
-      background: #b91c1c;
-    }
-
-    .tanker-card-body {
-      padding: 16px;
-    }
-
-    /* Entry Details Grid */
-    .entry-details-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1.2fr 1.5fr 1fr 1fr;
-      gap: 12px;
-      background-color: var(--bg-light);
-      padding: 12px;
-      border: 1px solid var(--border-gray);
-      border-radius: 6px;
-      margin-bottom: 16px;
-    }
-
-    .detail-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .detail-item label {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--primary-navy);
-      text-transform: uppercase;
-    }
-
-    .detail-item input {
-      padding: 7px 10px;
-      font-size: 12px;
-      border: 1px solid var(--border-gray);
-      border-radius: 4px;
-      background: #ffffff;
-      width: 100%;
-    }
-
-    /* Side-by-Side Photo Verification Pair */
-    .entry-photos-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .photo-box {
-      border: 1px solid var(--border-gray);
-      border-radius: 6px;
-      padding: 10px;
-      background: #fafafa;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .photo-box-header {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--secondary-blue);
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 2px;
-    }
-
-    .photo-card-spec {
-      font-size: 9px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    /* 4R Standard Postcard Aspect Ratio Frame (3:2) */
-    .photo-frame {
-      width: 100%;
-      aspect-ratio: 3 / 2;
-      background-color: #f1f5f9;
-      border: 1px dashed #94a3b8;
-      border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
-
-    .photo-placeholder {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-align: center;
-      padding: 6px;
-      font-weight: 500;
-    }
-
-    .photo-actions {
-      margin-top: 8px;
-      width: 100%;
-    }
-
-    .upload-label {
-      display: block;
-      width: 100%;
-      padding: 8px 0;
-      background-color: var(--primary-navy);
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 700;
-      text-align: center;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .upload-label:hover {
-      background-color: #122440;
-    }
-
-    .file-input {
-      display: none;
-    }
-
-    /* Mobile Responsive Adjustments */
-    @media (max-width: 768px) {
-      body { padding: 10px; }
-      .audit-container { padding: 15px; }
-      .metadata-grid { grid-template-columns: repeat(2, 1fr); }
-      .entry-details-grid { grid-template-columns: repeat(2, 1fr); }
-      .entry-photos-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 480px) {
-      .metadata-grid { grid-template-columns: 1fr; }
-      .entry-details-grid { grid-template-columns: 1fr; }
-    }
-
-    /* PDF Rendering Enforcements & Page Fit Optimization */
-    .pdf-rendering {
-      width: 100% !important;
-      max-width: 100% !important;
-      padding: 10px 15px !important;
-      margin: 0 !important;
-      background: #ffffff !important;
-      box-sizing: border-box !important;
-    }
-
-    .pdf-rendering .action-bar,
-    .pdf-rendering .photo-actions,
-    .pdf-rendering .upload-label,
-    .pdf-rendering .btn-delete-entry,
-    .pdf-rendering .btn-floating-add {
-      display: none !important;
-    }
-
-    .pdf-rendering .meta-item input,
-    .pdf-rendering .meta-item select,
-    .pdf-rendering .detail-item input {
-      padding: 6px 8px !important;
-      font-size: 11px !important;
-      text-indent: 0 !important;
-      box-sizing: border-box !important;
-      width: 100% !important;
-    }
-
-    .pdf-rendering .report-header {
-      padding-bottom: 8px !important;
-      margin-bottom: 10px !important;
-    }
-
-    .pdf-rendering .report-header h1 {
-      font-size: 18px !important;
-    }
-
-    .pdf-rendering .report-header h2 {
-      font-size: 12px !important;
-    }
-
-    .pdf-rendering .metadata-grid {
-      grid-template-columns: repeat(2, 1fr) !important;
-      padding: 8px 12px !important;
-      margin-bottom: 12px !important;
-      gap: 8px !important;
-    }
-
-    .pdf-rendering .tanker-list {
-      gap: 12px !important;
-    }
-
-    .pdf-rendering .tanker-card {
-      margin-bottom: 0 !important;
-    }
-
-    .pdf-rendering .tanker-card-header {
-      padding: 6px 12px !important;
-    }
-
-    .pdf-rendering .tanker-card-body {
-      padding: 10px 12px !important;
-    }
-
-    .pdf-rendering .entry-details-grid {
-      grid-template-columns: 1.5fr 1.2fr 1.5fr 1fr 1fr !important;
-      padding: 8px 10px !important;
-      margin-bottom: 10px !important;
-      gap: 8px !important;
-    }
-
-    .pdf-rendering .entry-photos-grid {
-      grid-template-columns: 1fr 1fr !important;
-      gap: 12px !important;
-    }
-
-    .pdf-rendering .photo-box {
-      padding: 6px !important;
-    }
-
-    .pdf-rendering .photo-card-spec {
-      margin-bottom: 4px !important;
-    }
-
-    .pdf-rendering .photo-frame {
-      max-height: 240px !important;
-    }
-
-    @media print {
-      @page { size: A4 landscape; margin: 8mm; }
-      body { background: #ffffff; padding: 0; }
-      .action-bar, .photo-actions, .btn-delete-entry, .btn-floating-add { display: none !important; }
-      .audit-container { box-shadow: none; padding: 0; width: 100%; }
-      .photo-frame { border: 1px solid #cbd5e1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Tanker Register - Radisson Blu Plaza Hotel Mysore</title>
+
+    <!-- html2pdf.js Bundle (Includes html2canvas & jsPDF) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --brand-navy: #1a365d;
+            --brand-blue: #2b6cb0;
+            --accent-gold: #d69e2e;
+            --bg-light: #f7fafc;
+            --border-color: #e2e8f0;
+            --text-dark: #2d3748;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #cbd5e0;
+            padding: 15px;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Fixed Width Container for Screen and Capture */
+        .page-container {
+            width: 100%;
+            max-width: 1100px;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            margin: 0 auto;
+        }
+
+        /* Action Bar / Header Controls */
+        .action-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .save-indicator {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #276749;
+            background-color: #f0fff4;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid #c6f6d5;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 9px 16px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-pdf { background-color: var(--brand-navy); color: #fff; }
+        .btn-pdf:hover { background-color: #0f2942; }
+
+        .btn-reset { background-color: #e53e3e; color: #fff; }
+        .btn-reset:hover { background-color: #c53030; }
+
+        .btn-add-tanker {
+            background-color: #2f855a;
+            color: #fff;
+        }
+        .btn-add-tanker:hover { background-color: #22543d; }
+
+        /* Document Header */
+        .doc-header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 3px double var(--brand-navy);
+            padding-bottom: 10px;
+        }
+
+        .doc-header h1 {
+            color: var(--brand-navy);
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .doc-header h2 {
+            color: var(--brand-blue);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        /* General Metadata Grid */
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            background-color: var(--bg-light);
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--brand-navy);
+            margin-bottom: 4px;
+        }
+
+        .form-group input, .form-group select {
+            padding: 8px 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background-color: #fff;
+            width: 100%;
+        }
+
+        /* Tanker Entry Card */
+        .tanker-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .tanker-card-header {
+            background-color: var(--brand-navy);
+            color: #fff;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .btn-delete-card {
+            background-color: #feb2b2;
+            color: #9b2c2c;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .tanker-card-body {
+            padding: 16px;
+        }
+
+        .tanker-details-grid {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1.5fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        /* Photo Cards Container */
+        .photos-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .photo-box {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px;
+            background-color: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .photo-box-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--brand-navy);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .photo-frame {
+            width: 100%;
+            aspect-ratio: 3 / 2;
+            background-color: #edf2f7;
+            border: 2px dashed #cbd5e0;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-placeholder {
+            font-size: 0.8rem;
+            color: #a0aec0;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .photo-actions {
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .upload-label {
+            background-color: var(--brand-blue);
+            color: white;
+            padding: 7px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .upload-label input {
+            display: none;
+        }
+
+        /* Fixed Floating Action Button (FAB) */
+        .btn-floating-add {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #276749;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-floating-add:hover {
+            background-color: #1e4e37;
+            transform: translateY(-2px);
+        }
+
+        /* PDF Render Specific Styles */
+        body.pdf-rendering {
+            background: #ffffff !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        body.pdf-rendering .page-container {
+            width: 100% !important;
+            max-width: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 10px 15px !important;
+            margin: 0 !important;
+        }
+
+        body.pdf-rendering .action-toolbar,
+        body.pdf-rendering .btn-floating-add,
+        body.pdf-rendering .btn-delete-card,
+        body.pdf-rendering .photo-actions,
+        body.pdf-rendering label.upload-label {
+            display: none !important;
+        }
+
+        body.pdf-rendering .tanker-card {
+            box-shadow: none !important;
+            margin-bottom: 12px !important;
+            border: 1px solid #cbd5e0 !important;
+        }
+
+        body.pdf-rendering .tanker-card-body {
+            padding: 10px !important;
+        }
+
+        body.pdf-rendering .photo-frame {
+            max-height: 230px !important;
+        }
+
+        body.pdf-rendering input,
+        body.pdf-rendering select {
+            border: 1px solid #cbd5e0 !important;
+            background: #ffffff !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+            -webkit-appearance: none;
+            appearance: none;
+            padding: 5px 6px !important;
+            text-indent: 0 !important;
+        }
+
+        /* Responsive Mobile Layout */
+        @media (max-width: 768px) {
+            .tanker-details-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .photos-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="audit-container" id="reportContent">
-    
-    <!-- Action Toolbar -->
-    <div class="action-bar">
-      <div class="save-status" id="saveStatus">
-        ✓ Auto-Saved to local storage
-      </div>
-      <div class="toolbar-buttons">
-        <button class="btn btn-add" onclick="addTankerEntry()">➕ Add Tanker Entry</button>
-        <button class="btn btn-pdf" onclick="downloadPDF()">📄 Export to PDF</button>
-        <button class="btn btn-reset" onclick="resetDraft()">🗑️ Reset Draft</button>
-      </div>
-    </div>
+    <!-- Floating Action Button for Adding Tanker Entries -->
+    <button class="btn-floating-add" onclick="addTankerCard()">
+        ➕ Add Tanker Entry
+    </button>
 
-    <!-- Header Branding -->
-    <div class="report-header">
-      <h1>Radisson Blu Plaza Hotel Mysore</h1>
-      <h2>Water Tanker Register</h2>
-    </div>
+    <div class="page-container" id="report-container">
 
-    <!-- Metadata Grid -->
-    <div class="metadata-grid">
-      <div class="meta-item">
-        <label for="auditDate">Date of Inspection</label>
-        <input type="date" id="auditDate" onchange="triggerAutoSave()">
-      </div>
-      <div class="meta-item">
-        <label for="dutyShift">Duty Shift</label>
-        <select id="dutyShift" onchange="triggerAutoSave()">
-          <option value="Morning Shift">Morning Shift</option>
-          <option value="General Shift" selected>General Shift</option>
-          <option value="Evening Shift">Evening Shift</option>
-          <option value="Night Shift">Night Shift</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Dynamic Tanker Entries Container -->
-    <div class="tanker-list" id="tankerListContainer">
-      <!-- Dynamic Tanker Entry Cards will be generated here -->
-    </div>
-
-  </div>
-
-  <!-- Floating Add Tanker Button -->
-  <button class="btn-floating-add" onclick="addTankerEntry()" title="Add New Tanker Entry">
-    ➕ Add Tanker Entry
-  </button>
-
-  <script>
-    let tankerCount = 0;
-
-    // Initialize & Restore Auto-Save Data
-    document.addEventListener('DOMContentLoaded', () => {
-      const auditDateInput = document.getElementById('auditDate');
-      if (auditDateInput && !auditDateInput.value) {
-        auditDateInput.valueAsDate = new Date();
-      }
-
-      const hasSavedData = loadSavedDraft();
-      if (!hasSavedData) {
-        // Default: Add 2 clean Tanker Entries to start
-        addTankerEntry();
-        addTankerEntry();
-      }
-    });
-
-    // Add New Dynamic Tanker Entry Card
-    function addTankerEntry(savedData = null) {
-      tankerCount++;
-      const currentId = tankerCount;
-
-      const card = document.createElement('div');
-      card.className = 'tanker-card';
-      card.id = `tanker-card-${currentId}`;
-
-      card.innerHTML = `
-        <div class="tanker-card-header">
-          <div class="tanker-card-title">
-            <span>🚛</span>
-            <span class="tanker-label">Tanker #${currentId}</span>
-          </div>
-          <button class="btn-delete-entry" onclick="removeTankerEntry(${currentId})">✕ Delete Entry</button>
+        <!-- Action Toolbar -->
+        <div class="action-toolbar">
+            <div class="save-indicator" id="save-status">
+                ✓ Auto-saved locally
+            </div>
+            <div class="action-btns">
+                <button class="btn btn-add-tanker" onclick="addTankerCard()">➕ Add Tanker</button>
+                <button class="btn btn-pdf" onclick="exportPDF()">📄 Download PDF</button>
+                <button class="btn btn-reset" onclick="resetForm()">🗑️ Reset Draft</button>
+            </div>
         </div>
-        <div class="tanker-card-body">
-          <div class="entry-details-grid">
-            <div class="detail-item">
-              <label>Vendor / Supplier Name</label>
-              <input type="text" id="vendor-${currentId}" placeholder="Enter Vendor Name" oninput="triggerAutoSave()">
-            </div>
-            <div class="detail-item">
-              <label>Vehicle Reg. No.</label>
-              <input type="text" id="vehicle-${currentId}" placeholder="e.g. KA-09-AB-1234" oninput="triggerAutoSave()">
-            </div>
-            <div class="detail-item">
-              <label>Person Who Checked</label>
-              <input type="text" id="inspector-${currentId}" placeholder="Inspector Name" oninput="triggerAutoSave()">
-            </div>
-            <div class="detail-item">
-              <label>Time-In</label>
-              <input type="time" id="timein-${currentId}" onchange="triggerAutoSave()">
-            </div>
-            <div class="detail-item">
-              <label>Time-Out</label>
-              <input type="time" id="timeout-${currentId}" onchange="triggerAutoSave()">
-            </div>
-          </div>
 
-          <div class="entry-photos-grid">
-            <div class="photo-box">
-              <div class="photo-box-header">Top Water Level (Pre-Unload)</div>
-              <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-              <div class="photo-frame">
-                <img id="img-p7-${currentId}">
-                <div class="photo-placeholder" id="ph-p7-${currentId}">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div>
-              </div>
-              <div class="photo-actions">
-                <label for="file-p7-${currentId}" class="upload-label">📷 Snap Photo</label>
-                <input type="file" id="file-p7-${currentId}" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', ${currentId})">
-              </div>
-            </div>
-
-            <div class="photo-box">
-              <div class="photo-box-header">Tanker Valve Open (Post-Unload)</div>
-              <div class="photo-card-spec">4R (4" × 6" / 102 × 152 mm)</div>
-              <div class="photo-frame">
-                <img id="img-p8-${currentId}">
-                <div class="photo-placeholder" id="ph-p8-${currentId}">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div>
-              </div>
-              <div class="photo-actions">
-                <label for="file-p8-${currentId}" class="upload-label">📷 Snap Photo</label>
-                <input type="file" id="file-p8-${currentId}" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', ${currentId})">
-              </div>
-            </div>
-          </div>
+        <!-- Document Header -->
+        <div class="doc-header">
+            <h1>Radisson Blu Plaza Hotel Mysore</h1>
+            <h2>Water Tanker Register</h2>
         </div>
-      `;
 
-      document.getElementById('tankerListContainer').appendChild(card);
+        <!-- General Metadata Grid -->
+        <div class="meta-grid">
+            <div class="form-group">
+                <label>Date of Inspection</label>
+                <input type="date" id="inspection-date" onchange="autoSave()">
+            </div>
+            <div class="form-group">
+                <label>Duty Shift</label>
+                <select id="duty-shift" onchange="autoSave()">
+                    <option value="General Shift">General Shift</option>
+                    <option value="Morning Shift">Morning Shift</option>
+                    <option value="Afternoon Shift">Afternoon Shift</option>
+                    <option value="Night Shift">Night Shift</option>
+                </select>
+            </div>
+        </div>
 
-      if (savedData) {
-        if (savedData.vendor) document.getElementById(`vendor-${currentId}`).value = savedData.vendor;
-        if (savedData.vehicle) document.getElementById(`vehicle-${currentId}`).value = savedData.vehicle;
-        if (savedData.inspector) document.getElementById(`inspector-${currentId}`).value = savedData.inspector;
-        if (savedData.timein) document.getElementById(`timein-${currentId}`).value = savedData.timein;
-        if (savedData.timeout) document.getElementById(`timeout-${currentId}`).value = savedData.timeout;
+        <!-- Tanker Cards List Container -->
+        <div id="tanker-cards-container"></div>
 
-        if (savedData.imgP7) {
-          const img = document.getElementById(`img-p7-${currentId}`);
-          const ph = document.getElementById(`ph-p7-${currentId}`);
-          img.src = savedData.imgP7;
-          img.style.display = 'block';
-          ph.style.display = 'none';
+    </div>
+
+    <script>
+        let tankerCount = 0;
+        const STORAGE_KEY = "WaterTankerRegister_Draft_V3";
+
+        // Initialize Page
+        window.addEventListener("DOMContentLoaded", () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("inspection-date").value = today;
+            
+            loadSavedData();
+
+            // Guarantee at least 1 tanker entry on first load
+            if (document.querySelectorAll(".tanker-card").length === 0) {
+                addTankerCard();
+            }
+        });
+
+        // Add New Tanker Card Entry
+        function addTankerCard(data = null) {
+            tankerCount++;
+            const cardId = `tanker-card-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+            const cardHTML = `
+                <div class="tanker-card" id="${cardId}">
+                    <div class="tanker-card-header">
+                        <span>Tanker #${document.querySelectorAll('.tanker-card').length + 1}</span>
+                        <button class="btn-delete-card" onclick="removeTankerCard('${cardId}')">✕ Delete Entry</button>
+                    </div>
+                    <div class="tanker-card-body">
+                        <div class="tanker-details-grid">
+                            <div class="form-group">
+                                <label>Vendor / Supplier Name</label>
+                                <input type="text" class="tanker-vendor" placeholder="Supplier Name" oninput="autoSave()">
+                            </div>
+                            <div class="form-group">
+                                <label>Vehicle Reg. No.</label>
+                                <input type="text" class="tanker-plate" placeholder="e.g. KA-09-1234" oninput="autoSave()">
+                            </div>
+                            <div class="form-group">
+                                <label>Person Who Checked</label>
+                                <input type="text" class="tanker-checker" placeholder="Inspector Name" oninput="autoSave()">
+                            </div>
+                            <div class="form-group">
+                                <label>Time-In</label>
+                                <input type="time" class="tanker-timein" onchange="autoSave()">
+                            </div>
+                            <div class="form-group">
+                                <label>Time-Out</label>
+                                <input type="time" class="tanker-timeout" onchange="autoSave()">
+                            </div>
+                        </div>
+
+                        <div class="photos-container">
+                            <!-- Photo 1: Top Water Level -->
+                            <div class="photo-box">
+                                <div class="photo-box-title">Top Water Level (Pre-Unload)<br><small>4R (4" × 6" / 102 × 152 mm)</small></div>
+                                <div class="photo-frame" id="${cardId}-p1-frame">
+                                    <div class="photo-placeholder">📷 Click 'Snap Photo' to capture</div>
+                                </div>
+                                <div class="photo-actions">
+                                    <label class="upload-label">
+                                        📷 Snap Photo
+                                        <input type="file" accept="image/*" capture="environment" onchange="handleImageUpload(event, '${cardId}-p1-frame')">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Photo 2: Tanker Valve Open -->
+                            <div class="photo-box">
+                                <div class="photo-box-title">Tanker Valve Open (Post-Unload)<br><small>4R (4" × 6" / 102 × 152 mm)</small></div>
+                                <div class="photo-frame" id="${cardId}-p2-frame">
+                                    <div class="photo-placeholder">📷 Click 'Snap Photo' to capture</div>
+                                </div>
+                                <div class="photo-actions">
+                                    <label class="upload-label">
+                                        📷 Snap Photo
+                                        <input type="file" accept="image/*" capture="environment" onchange="handleImageUpload(event, '${cardId}-p2-frame')">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById("tanker-cards-container").insertAdjacentHTML("beforeend", cardHTML);
+
+            if (data) {
+                const card = document.getElementById(cardId);
+                card.querySelector(".tanker-vendor").value = data.vendor || "";
+                card.querySelector(".tanker-plate").value = data.plate || "";
+                card.querySelector(".tanker-checker").value = data.checker || "";
+                card.querySelector(".tanker-timein").value = data.timeIn || "";
+                card.querySelector(".tanker-timeout").value = data.timeOut || "";
+
+                if (data.photo1) renderImageToFrame(data.photo1, `${cardId}-p1-frame`);
+                if (data.photo2) renderImageToFrame(data.photo2, `${cardId}-p2-frame`);
+            }
+
+            renumberCards();
+            autoSave();
         }
 
-        if (savedData.imgP8) {
-          const img = document.getElementById(`img-p8-${currentId}`);
-          const ph = document.getElementById(`ph-p8-${currentId}`);
-          img.src = savedData.imgP8;
-          img.style.display = 'block';
-          ph.style.display = 'none';
-        }
-      }
-
-      updateTankerLabels();
-      triggerAutoSave();
-    }
-
-    // Remove Tanker Entry Card
-    function removeTankerEntry(id) {
-      const card = document.getElementById(`tanker-card-${id}`);
-      if (card) {
-        card.remove();
-        updateTankerLabels();
-        triggerAutoSave();
-      }
-    }
-
-    // Renumber Header Labels (Tanker #1, Tanker #2, ...)
-    function updateTankerLabels() {
-      const cards = document.querySelectorAll('.tanker-card');
-      cards.forEach((card, idx) => {
-        const label = card.querySelector('.tanker-label');
-        if (label) label.textContent = `Tanker #${idx + 1}`;
-      });
-    }
-
-    // Process Image & Burn Lossless High-Clarity Timestamp Watermark
-    function processImage(input, point, tankerId) {
-      if (!input.files || !input.files[0]) return;
-
-      const file = input.files[0];
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        const img = new Image();
-        img.onload = function () {
-          // Optimized 4R Standard (1500x1000 px @ High Density)
-          const canvas = document.createElement('canvas');
-          canvas.width = 1500;
-          canvas.height = 1000;
-          const ctx = canvas.getContext('2d');
-
-          ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = 'high';
-
-          ctx.drawImage(img, 0, 0, 1500, 1000);
-
-          const now = new Date();
-          const dateStr = now.toLocaleDateString('en-GB'); // DD/MM/YYYY
-          const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-
-          // High-Contrast Solid Dark Overlay Bar
-          ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
-          ctx.fillRect(0, 880, 1500, 120);
-
-          // Accent Gold Border Separator
-          ctx.fillStyle = '#FFD700';
-          ctx.fillRect(0, 872, 1500, 8);
-
-          // Crisp Timestamp Text
-          ctx.fillStyle = '#FFD700';
-          ctx.font = 'bold 42px Inter, Arial, sans-serif';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(`DATE: ${dateStr}   |   TIME: ${timeStr}`, 750, 940);
-
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.88);
-
-          const targetImg = document.getElementById(`img-${point}-${tankerId}`);
-          const targetPh = document.getElementById(`ph-${point}-${tankerId}`);
-
-          targetImg.src = dataUrl;
-          targetImg.style.display = 'block';
-          targetPh.style.display = 'none';
-
-          triggerAutoSave();
-        };
-        img.src = e.target.result;
-      };
-
-      reader.readAsDataURL(file);
-    }
-
-    // Auto-Save System via localStorage
-    function triggerAutoSave() {
-      const data = {
-        date: document.getElementById('auditDate').value,
-        shift: document.getElementById('dutyShift').value,
-        entries: []
-      };
-
-      const cards = document.querySelectorAll('.tanker-card');
-      cards.forEach(card => {
-        const id = card.id.replace('tanker-card-', '');
-        const entryData = {
-          vendor: document.getElementById(`vendor-${id}`)?.value || '',
-          vehicle: document.getElementById(`vehicle-${id}`)?.value || '',
-          inspector: document.getElementById(`inspector-${id}`)?.value || '',
-          timein: document.getElementById(`timein-${id}`)?.value || '',
-          timeout: document.getElementById(`timeout-${id}`)?.value || '',
-          imgP7: '',
-          imgP8: ''
-        };
-
-        const imgP7 = document.getElementById(`img-p7-${id}`);
-        if (imgP7 && imgP7.src && imgP7.style.display !== 'none') {
-          entryData.imgP7 = imgP7.src;
+        // Delete Tanker Card
+        function removeTankerCard(cardId) {
+            const card = document.getElementById(cardId);
+            if (card) {
+                card.remove();
+                renumberCards();
+                autoSave();
+            }
         }
 
-        const imgP8 = document.getElementById(`img-p8-${id}`);
-        if (imgP8 && imgP8.src && imgP8.style.display !== 'none') {
-          entryData.imgP8 = imgP8.src;
+        // Renumber Header Titles (Tanker #1, Tanker #2, ...)
+        function renumberCards() {
+            const cards = document.querySelectorAll(".tanker-card");
+            cards.forEach((card, idx) => {
+                const titleSpan = card.querySelector(".tanker-card-header span");
+                if (titleSpan) titleSpan.textContent = `Tanker #${idx + 1}`;
+            });
         }
 
-        data.entries.push(entryData);
-      });
+        // Image Processing with Crisp 42px Watermark Banner
+        function handleImageUpload(event, frameId) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-      try {
-        localStorage.setItem('water_tanker_register_draft', JSON.stringify(data));
-        const statusEl = document.getElementById('saveStatus');
-        if (statusEl) {
-          const now = new Date();
-          statusEl.textContent = `✓ Auto-Saved at ${now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'})}`;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement("canvas");
+                    const ctx = canvas.getContext("2d");
+
+                    // 4R Standard Resolution
+                    canvas.width = 1500;
+                    canvas.height = 1000;
+
+                    // Draw Base Image
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    // Timestamp Banner
+                    const now = new Date();
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const year = now.getFullYear();
+                    
+                    let hours = now.getHours();
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    const seconds = String(now.getSeconds()).padStart(2, '0');
+                    const ampm = hours >= 12 ? 'pm' : 'am';
+                    hours = hours % 12 || 12;
+                    const formattedHours = String(hours).padStart(2, '0');
+
+                    const stampText = `DATE: ${day}/${month}/${year}  |  TIME: ${formattedHours}:${minutes}:${seconds} ${ampm}`;
+
+                    const bannerHeight = 75;
+                    ctx.fillStyle = "rgba(10, 20, 35, 0.92)";
+                    ctx.fillRect(0, canvas.height - bannerHeight, canvas.width, bannerHeight);
+
+                    // Gold Border Highlight
+                    ctx.fillStyle = "#d69e2e";
+                    ctx.fillRect(0, canvas.height - bannerHeight, canvas.width, 5);
+
+                    // Crisp 42px Gold Text (Non-clipping)
+                    ctx.font = "bold 42px sans-serif";
+                    ctx.fillStyle = "#ffd700";
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
+                    ctx.fillText(stampText, canvas.width / 2, canvas.height - (bannerHeight / 2) + 2);
+
+                    const processedDataUrl = canvas.toDataURL("image/jpeg", 0.88);
+                    renderImageToFrame(processedDataUrl, frameId);
+                    autoSave();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
-      } catch(e) {
-        console.warn('Storage quota limit reached or localStorage disabled:', e);
-      }
-    }
 
-    function loadSavedDraft() {
-      const savedStr = localStorage.getItem('water_tanker_register_draft');
-      if (!savedStr) return false;
-
-      try {
-        const data = JSON.parse(savedStr);
-        if (data.date) document.getElementById('auditDate').value = data.date;
-        if (data.shift) document.getElementById('dutyShift').value = data.shift;
-
-        if (data.entries && data.entries.length > 0) {
-          document.getElementById('tankerListContainer').innerHTML = '';
-          tankerCount = 0;
-          data.entries.forEach(entry => {
-            addTankerEntry(entry);
-          });
-          return true;
+        function renderImageToFrame(dataUrl, frameId) {
+            const frame = document.getElementById(frameId);
+            if (frame) {
+                frame.innerHTML = `<img src="${dataUrl}" alt="Inspection Evidence">`;
+            }
         }
-      } catch (e) {
-        console.error('Failed to parse saved draft:', e);
-      }
-      return false;
-    }
 
-    function resetDraft() {
-      if (confirm("Are you sure you want to clear all tanker entries and reset the draft?")) {
-        localStorage.removeItem('water_tanker_register_draft');
-        location.reload();
-      }
-    }
+        // Auto Save to Local Storage
+        function autoSave() {
+            const cardsData = [];
+            document.querySelectorAll(".tanker-card").forEach(card => {
+                const p1Img = card.querySelector(`#${card.id}-p1-frame img`);
+                const p2Img = card.querySelector(`#${card.id}-p2-frame img`);
 
-    // PDF Export Function (Optimized for Landscape & Email < 10 MB)
-    function downloadPDF() {
-      const element = document.getElementById('reportContent');
-      const dateStr = document.getElementById('auditDate').value || 'Log';
+                cardsData.push({
+                    vendor: card.querySelector(".tanker-vendor").value,
+                    plate: card.querySelector(".tanker-plate").value,
+                    checker: card.querySelector(".tanker-checker").value,
+                    timeIn: card.querySelector(".tanker-timein").value,
+                    timeOut: card.querySelector(".tanker-timeout").value,
+                    photo1: p1Img ? p1Img.src : null,
+                    photo2: p2Img ? p2Img.src : null
+                });
+            });
 
-      // Scroll window to top left to prevent html2canvas origin shift
-      window.scrollTo(0, 0);
+            const payload = {
+                date: document.getElementById("inspection-date").value,
+                shift: document.getElementById("duty-shift").value,
+                cards: cardsData,
+                savedAt: new Date().toLocaleTimeString()
+            };
 
-      element.classList.add('pdf-rendering');
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
 
-      const inputs = element.querySelectorAll('input, select');
-      inputs.forEach(input => {
-        input.scrollLeft = 0;
-        if (input.tagName === 'SELECT') {
-          const selectedOption = input.options[input.selectedIndex];
-          if (selectedOption) input.setAttribute('value', selectedOption.text);
-        } else {
-          input.setAttribute('value', input.value);
+            const status = document.getElementById("save-status");
+            status.textContent = `✓ Auto-saved at ${payload.savedAt}`;
         }
-      });
 
-      const opt = {
-        margin:       [6, 6, 6, 6],
-        filename:     `Water_Tanker_Register_${dateStr}.pdf`,
-        image:        { type: 'jpeg', quality: 0.92 },
-        html2canvas:  { 
-          scale: 2, 
-          useCORS: true, 
-          logging: false, 
-          imageTimeout: 0,
-          x: 0,
-          y: 0,
-          scrollX: 0,
-          scrollY: 0
-        },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
-        pagebreak:    { mode: ['css', 'legacy'] }
-      };
+        // Load Saved Draft
+        function loadSavedData() {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return;
 
-      const actionBar = document.querySelector('.action-bar');
-      if (actionBar) actionBar.style.display = 'none';
+            try {
+                const data = JSON.parse(raw);
+                if (data.date) document.getElementById("inspection-date").value = data.date;
+                if (data.shift) document.getElementById("duty-shift").value = data.shift;
 
-      html2pdf().set(opt).from(element).save().then(() => {
-        element.classList.remove('pdf-rendering');
-        if (actionBar) actionBar.style.display = 'flex';
-      }).catch(err => {
-        console.error('PDF export error:', err);
-        element.classList.remove('pdf-rendering');
-        if (actionBar) actionBar.style.display = 'flex';
-      });
-    }
-  </script>
+                if (Array.isArray(data.cards) && data.cards.length > 0) {
+                    document.getElementById("tanker-cards-container").innerHTML = "";
+                    data.cards.forEach(cardData => addTankerCard(cardData));
+                }
+            } catch(e) {
+                console.error("Error restoring local storage draft", e);
+            }
+        }
 
+        // Reset Draft
+        function resetForm() {
+            if (confirm("Are you sure you want to clear this entire draft and start fresh?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        // Export PDF with Perfect Centering (No Left Gap)
+        function exportPDF() {
+            window.scrollTo(0, 0);
+            document.body.classList.add("pdf-rendering");
+
+            // Reset horizontal scroll inside inputs
+            document.querySelectorAll("input").forEach(i => i.scrollLeft = 0);
+
+            const element = document.getElementById("report-container");
+            const dateVal = document.getElementById("inspection-date").value || "Report";
+            const filename = `Water_Tanker_Register_${dateVal}.pdf`;
+
+            const opt = {
+                margin:       [6, 8, 6, 8], // Balanced 8mm side margins for perfect centering
+                filename:     filename,
+                image:        { type: 'jpeg', quality: 0.88 },
+                html2canvas:  { 
+                    scale: 2, 
+                    useCORS: true,
+                    logging: false,
+                    scrollX: 0,
+                    scrollY: 0,
+                    x: 0,
+                    y: 0,
+                    windowWidth: element.offsetWidth
+                },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                document.body.classList.remove("pdf-rendering");
+            }).catch(err => {
+                console.error("PDF generation error:", err);
+                document.body.classList.remove("pdf-rendering");
+            });
+        }
+    </script>
 </body>
 </html>
