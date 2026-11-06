@@ -414,10 +414,12 @@
 
     /* PDF Rendering Enforcements & Page Fit Optimization */
     .pdf-rendering {
-      width: 1050px !important;
-      max-width: 1050px !important;
-      padding: 15px 20px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 10px 15px !important;
+      margin: 0 !important;
       background: #ffffff !important;
+      box-sizing: border-box !important;
     }
 
     .pdf-rendering .action-bar,
@@ -426,6 +428,16 @@
     .pdf-rendering .btn-delete-entry,
     .pdf-rendering .btn-floating-add {
       display: none !important;
+    }
+
+    .pdf-rendering .meta-item input,
+    .pdf-rendering .meta-item select,
+    .pdf-rendering .detail-item input {
+      padding: 6px 8px !important;
+      font-size: 11px !important;
+      text-indent: 0 !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
     }
 
     .pdf-rendering .report-header {
@@ -824,10 +836,14 @@
       const element = document.getElementById('reportContent');
       const dateStr = document.getElementById('auditDate').value || 'Log';
 
+      // Scroll window to top left to prevent html2canvas origin shift
+      window.scrollTo(0, 0);
+
       element.classList.add('pdf-rendering');
 
       const inputs = element.querySelectorAll('input, select');
       inputs.forEach(input => {
+        input.scrollLeft = 0;
         if (input.tagName === 'SELECT') {
           const selectedOption = input.options[input.selectedIndex];
           if (selectedOption) input.setAttribute('value', selectedOption.text);
@@ -840,7 +856,16 @@
         margin:       [6, 6, 6, 6],
         filename:     `Water_Tanker_Register_${dateStr}.pdf`,
         image:        { type: 'jpeg', quality: 0.92 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false, windowWidth: 1050, imageTimeout: 0 },
+        html2canvas:  { 
+          scale: 2, 
+          useCORS: true, 
+          logging: false, 
+          imageTimeout: 0,
+          x: 0,
+          y: 0,
+          scrollX: 0,
+          scrollY: 0
+        },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
         pagebreak:    { mode: ['css', 'legacy'] }
       };
