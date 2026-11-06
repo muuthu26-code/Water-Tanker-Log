@@ -412,11 +412,11 @@
       .entry-details-grid { grid-template-columns: 1fr; }
     }
 
-    /* PDF Rendering Enforcements */
+    /* PDF Rendering Enforcements & Page Fit Optimization */
     .pdf-rendering {
       width: 1050px !important;
       max-width: 1050px !important;
-      padding: 20px !important;
+      padding: 15px 20px !important;
       background: #ffffff !important;
     }
 
@@ -428,16 +428,64 @@
       display: none !important;
     }
 
+    .pdf-rendering .report-header {
+      padding-bottom: 8px !important;
+      margin-bottom: 10px !important;
+    }
+
+    .pdf-rendering .report-header h1 {
+      font-size: 18px !important;
+    }
+
+    .pdf-rendering .report-header h2 {
+      font-size: 12px !important;
+    }
+
     .pdf-rendering .metadata-grid {
       grid-template-columns: repeat(2, 1fr) !important;
+      padding: 8px 12px !important;
+      margin-bottom: 12px !important;
+      gap: 8px !important;
+    }
+
+    .pdf-rendering .tanker-list {
+      gap: 12px !important;
+    }
+
+    .pdf-rendering .tanker-card {
+      margin-bottom: 0 !important;
+    }
+
+    .pdf-rendering .tanker-card-header {
+      padding: 6px 12px !important;
+    }
+
+    .pdf-rendering .tanker-card-body {
+      padding: 10px 12px !important;
     }
 
     .pdf-rendering .entry-details-grid {
       grid-template-columns: 1.5fr 1.2fr 1.5fr 1fr 1fr !important;
+      padding: 8px 10px !important;
+      margin-bottom: 10px !important;
+      gap: 8px !important;
     }
 
     .pdf-rendering .entry-photos-grid {
       grid-template-columns: 1fr 1fr !important;
+      gap: 12px !important;
+    }
+
+    .pdf-rendering .photo-box {
+      padding: 6px !important;
+    }
+
+    .pdf-rendering .photo-card-spec {
+      margin-bottom: 4px !important;
+    }
+
+    .pdf-rendering .photo-frame {
+      max-height: 240px !important;
     }
 
     @media print {
