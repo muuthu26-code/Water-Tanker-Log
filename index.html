@@ -1,766 +1,658 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Tanker Audit Log Report - Radisson Blu Plaza Hotel Mysore</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Tanker Audit Log Report - Radisson Blu Plaza Hotel Mysore</title>
+  
+  <!-- Content Security Policy for GitHub Security Hardening -->
+  <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self'; 
+                 script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://unpkg.com; 
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; 
+                 font-src 'self' https://fonts.gstatic.com; 
+                 img-src 'self' data: blob:; 
+                 object-src 'none'; 
+                 base-uri 'self';">
 
-    <!-- Security: Hardened Content Security Policy (CSP) for GitHub Public Host -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: blob:;">
+  <!-- External PDF Generation Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-navy: #1b365d;
+      --secondary-blue: #2b547e;
+      --accent-blue: #e8eef5;
+      --border-gray: #cbd5e1;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --bg-light: #f8fafc;
+    }
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
 
-    <!-- FontAwesome Icons CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    body {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+      padding: 20px;
+    }
 
-    <!-- SheetJS (XLSX) CDN for Real Excel (.xlsx) Export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    /* Container & Print Page Setup */
+    .audit-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      padding: 30px;
+    }
 
-    <!-- html2pdf.js CDN for Direct Client-Side PDF Generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    /* Action Toolbar */
+    .action-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
 
-    <!-- Google Font: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    .btn {
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
 
-    <script>
-        // Custom Tailwind Configuration for Radisson Brand Styling
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        radisson: {
-                            navy: '#1B365D',
-                            blue: '#00539B',
-                            gold: '#C5A059',
-                            dark: '#0F172A',
-                            slate: '#334155',
-                            light: '#F8FAFC'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    .btn-pdf {
+      background-color: var(--primary-navy);
+      color: #ffffff;
+    }
 
-    <style>
-        /* Standard 3:2 Postcard Aspect Ratio for Crisp Photo Frames */
-        .postcard-aspect {
-            aspect-ratio: 3 / 2;
-        }
+    .btn-pdf:hover {
+      background-color: #122440;
+    }
 
-        /* Print Media Stylesheet for A4 Landscape Document Rendering */
-        @media print {
-            body {
-                background: white !important;
-                color: black !important;
-                font-size: 10px !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
+    .btn-print {
+      background-color: #475569;
+      color: #ffffff;
+    }
 
-            .no-print {
-                display: none !important;
-            }
+    .btn-print:hover {
+      background-color: #334155;
+    }
 
-            .page-break-before {
-                page-break-before: always;
-            }
+    /* Header Branding */
+    .report-header {
+      text-align: center;
+      border-bottom: 2px solid var(--primary-navy);
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
 
-            .print-shadow-none {
-                box-shadow: none !important;
-                border: 1px solid #cbd5e1 !important;
-            }
+    .report-header h1 {
+      color: var(--primary-navy);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
 
-            @page {
-                size: A4 landscape;
-                margin: 6mm;
-            }
+    .report-header h2 {
+      color: var(--secondary-blue);
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
 
-            .photo-grid {
-                grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-                gap: 6px !important;
-            }
+    .report-header .sub-tag {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
 
-            .postcard-aspect {
-                height: 105px !important;
-            }
+    /* Metadata Grid */
+    .metadata-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      background-color: var(--bg-light);
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid var(--border-gray);
+      margin-bottom: 25px;
+    }
 
-            input, select {
-                border: none !important;
-                background: transparent !important;
-                appearance: none !important;
-            }
-        }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
 
-        /* Custom Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-    </style>
+    .meta-item label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary-navy);
+      text-transform: uppercase;
+    }
+
+    .meta-item input, .meta-item select {
+      padding: 8px 10px;
+      font-size: 13px;
+      border: 1px solid var(--border-gray);
+      border-radius: 4px;
+      background-color: #ffffff;
+    }
+
+    .meta-item input[readonly] {
+      background-color: #e2e8f0;
+      cursor: not-allowed;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    /* Log Table */
+    .table-responsive {
+      overflow-x: auto;
+      margin-bottom: 30px;
+    }
+
+    .log-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .log-table th {
+      background-color: var(--primary-navy);
+      color: #ffffff;
+      padding: 10px 8px;
+      text-align: center;
+      font-weight: 600;
+      border: 1px solid #0f2342;
+    }
+
+    .log-table td {
+      padding: 8px;
+      border: 1px solid var(--border-gray);
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .log-table td.param-name {
+      text-align: left;
+      font-weight: 600;
+      background-color: var(--bg-light);
+      width: 250px;
+    }
+
+    .log-table td.sno {
+      font-weight: 700;
+      background-color: var(--bg-light);
+      width: 40px;
+    }
+
+    .log-table input {
+      width: 100%;
+      padding: 6px 4px;
+      font-size: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .log-table input:focus {
+      border-color: var(--primary-navy);
+      outline: none;
+    }
+
+    .calc-row {
+      background-color: var(--accent-blue) !important;
+      font-weight: 700;
+    }
+
+    .calc-val {
+      color: var(--primary-navy);
+      font-weight: 700;
+    }
+
+    /* Photos Section */
+    .photos-section {
+      margin-top: 25px;
+      page-break-before: always;
+      break-before: page;
+    }
+
+    .section-title {
+      background-color: var(--secondary-blue);
+      color: #ffffff;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 6px 6px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      background: var(--bg-light);
+      padding: 15px;
+      border: 1px solid var(--border-gray);
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+    }
+
+    .photo-card {
+      background: #ffffff;
+      border: 1px solid var(--border-gray);
+      border-radius: 6px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .photo-card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary-navy);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    /* Postcard 3:2 Ratio Frame */
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      background-color: #f1f5f9;
+      border: 1px dashed #94a3b8;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .photo-placeholder {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 5px;
+    }
+
+    .photo-actions {
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    .upload-label {
+      display: block;
+      width: 100%;
+      padding: 6px 0;
+      background-color: var(--primary-navy);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .upload-label:hover {
+      background-color: #122440;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    /* Print & PDF Export Formatting */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+
+      .action-bar, .photo-actions {
+        display: none !important;
+      }
+
+      .audit-container {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .photo-frame {
+        border: 1px solid #cbd5e1;
+      }
+    }
+  </style>
 </head>
-<body class="bg-slate-100 font-sans text-slate-800 antialiased min-h-screen pb-12">
+<body>
 
-    <!-- TOP ACTION NAVBAR (Hidden during PDF generation / Print) -->
-    <header class="no-print sticky top-0 z-50 bg-radisson-navy text-white shadow-md border-b border-slate-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="bg-radisson-gold text-radisson-navy p-2 rounded-lg font-bold text-xl flex items-center justify-center w-10 h-10 shadow">
-                    <i class="fa-solid fa-truck-droplet"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg leading-tight tracking-wide text-white">Water Tanker Audit Control System</h1>
-                    <p class="text-xs text-slate-300">Radisson Blu Plaza Hotel Mysore • Loss Prevention & Facility Maintenance</p>
-                </div>
-            </div>
-
-            <!-- Global Actions Toolbar -->
-            <div class="flex flex-wrap items-center gap-2">
-                <button onclick="resetAuditForm()" class="bg-slate-700 hover:bg-slate-800 text-slate-200 hover:text-white text-xs font-semibold px-3 py-2 rounded-md transition flex items-center gap-1.5 shadow-sm">
-                    <i class="fa-solid fa-rotate-left"></i> Clear Form
-                </button>
-                <button onclick="exportToExcelSheetJS()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-md transition flex items-center gap-1.5 shadow-sm">
-                    <i class="fa-solid fa-file-excel"></i> Export Excel (.xlsx)
-                </button>
-                <button onclick="exportToPDFHtml2Pdf()" class="bg-radisson-gold hover:bg-amber-600 text-radisson-navy hover:text-white font-bold text-xs px-4 py-2 rounded-md transition flex items-center gap-1.5 shadow-md">
-                    <i class="fa-solid fa-file-pdf"></i> Export PDF
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- MAIN CONTAINER -->
-    <main class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 pt-6">
-
-        <!-- SECURITY & SIZE COMPLIANCE BANNER -->
-        <div class="no-print mb-4 bg-blue-50 border border-blue-200 rounded-lg p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-blue-900 shadow-sm">
-            <div class="flex items-center gap-2.5">
-                <i class="fa-solid fa-shield-halved text-radisson-navy text-base"></i>
-                <div>
-                    <span class="font-bold">Security & Compliance Hardened:</span> Client-side canvas watermarking embeds date, timestamp, location, and inspector info into postcard evidence images while auto-compressing under the <span class="font-bold text-emerald-800">10 MB email limit</span>.
-                </div>
-            </div>
-            <div class="flex items-center gap-3 self-end sm:self-auto">
-                <span class="bg-white px-3 py-1 rounded border border-blue-200 font-mono font-medium text-slate-700">
-                    Est. Export Size: <span class="font-bold text-emerald-700" id="calculatedSize">~0.25 MB</span>
-                </span>
-            </div>
-        </div>
-
-        <!-- MAIN AUDIT DOCUMENT CARD (Export Target) -->
-        <div id="auditReportDocument" class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden print-shadow-none">
-
-            <!-- DOCUMENT HEADER -->
-            <div class="bg-radisson-navy text-white p-5 border-b-4 border-radisson-gold">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <div class="flex items-center gap-2 text-radisson-gold text-xs font-bold uppercase tracking-wider mb-1">
-                            <span>Facility Audit Control</span>
-                            <span>•</span>
-                            <span>Loss Prevention & Engineering</span>
-                        </div>
-                        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">RADISSON BLU PLAZA HOTEL MYSORE</h2>
-                        <h3 class="text-xs sm:text-sm font-semibold text-slate-200 mt-0.5">WATER TANKER AUDIT LOG REPORT & PHOTOGRAPHIC VERIFICATION</h3>
-                    </div>
-                    <div class="text-left md:text-right bg-slate-900/60 p-2.5 rounded-lg border border-slate-700/60 min-w-[210px]">
-                        <div class="text-[11px] text-slate-300">Audit Control Ref:</div>
-                        <div class="font-mono font-bold text-sm text-radisson-gold" id="auditRefDisplay">AUD-WTR-2026-1106</div>
-                        <div class="text-[10px] text-slate-400 mt-0.5">Status: <span class="text-emerald-400 font-semibold uppercase">Verified Audit Entry</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TOP METADATA SECTION -->
-            <div class="p-4 sm:p-5 bg-slate-50 border-b border-slate-200">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- Date of Inspection -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1" for="metaDate">Date of Inspection</label>
-                        <input type="date" id="metaDate" class="w-full bg-white border border-slate-300 rounded px-3 py-1.5 text-xs font-medium text-slate-800 focus:ring-2 focus:ring-radisson-blue focus:border-radisson-blue outline-none transition" value="2026-11-06">
-                    </div>
-
-                    <!-- Person Who Checked Tanker -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1" for="metaInspector">Person Who Checked Tanker</label>
-                        <input type="text" id="metaInspector" class="w-full bg-white border border-slate-300 rounded px-3 py-1.5 text-xs font-medium text-slate-800 focus:ring-2 focus:ring-radisson-blue focus:border-radisson-blue outline-none transition" placeholder="e.g. Ramesh Kumar (LP Team)">
-                    </div>
-
-                    <!-- Gate / Receiving Location (Read-Only) -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1" for="metaLocation">Gate / Receiving Location</label>
-                        <input type="text" id="metaLocation" class="w-full bg-slate-200/80 border border-slate-300 rounded px-3 py-1.5 text-xs font-bold text-slate-800 cursor-not-allowed outline-none" value="Receiving Bay" readonly>
-                    </div>
-
-                    <!-- Duty Shift (Dropdown) -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1" for="metaShift">Duty Shift</label>
-                        <select id="metaShift" class="w-full bg-white border border-slate-300 rounded px-3 py-1.5 text-xs font-medium text-slate-800 focus:ring-2 focus:ring-radisson-blue focus:border-radisson-blue outline-none transition">
-                            <option value="Morning Shift">Morning Shift</option>
-                            <option value="General Shift" selected>General Shift</option>
-                            <option value="Evening Shift">Evening Shift</option>
-                            <option value="Night Shift">Night Shift</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TANKER LOG MAIN DATA TABLE (Points 1 to 6 + Auto-calculated Net Volume) -->
-            <div class="p-4 sm:p-5 border-b border-slate-200">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-bold text-radisson-navy text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-radisson-blue"></i> Water Tanker Receipt Operational Log Sheet
-                    </h4>
-                    <span class="text-[11px] text-slate-500 italic">Net Volume Discharged = End Reading - Start Reading</span>
-                </div>
-
-                <div class="overflow-x-auto rounded-lg border border-slate-300 shadow-xs">
-                    <table class="w-full text-left text-xs border-collapse">
-                        <thead>
-                            <tr class="bg-radisson-navy text-white font-semibold text-center divide-x divide-slate-700">
-                                <th class="py-2.5 px-2 w-10">S.No</th>
-                                <th class="py-2.5 px-3 text-left w-56">Parameter Description</th>
-                                <th class="py-2.5 px-2 w-32 bg-slate-800">Tanker 1</th>
-                                <th class="py-2.5 px-2 w-32 bg-slate-800">Tanker 2</th>
-                                <th class="py-2.5 px-2 w-32 bg-slate-800">Tanker 3</th>
-                                <th class="py-2.5 px-2 w-32 bg-slate-800">Tanker 4</th>
-                                <th class="py-2.5 px-2 w-32 bg-slate-800">Tanker 5</th>
-                                <th class="py-2.5 px-3 text-left min-w-[140px]">Audit Remarks</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-200 bg-white font-medium">
-                            <!-- Row 1: Vendor / Supplier Name -->
-                            <tr class="hover:bg-slate-50 transition">
-                                <td class="py-2 px-2 text-center font-bold text-slate-500">1</td>
-                                <td class="py-2 px-3 font-semibold text-slate-700">Vendor / Supplier Name</td>
-                                <td class="py-1.5 px-2"><input type="text" id="t1_vendor" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 focus:border-radisson-blue outline-none" placeholder="Vendor 1"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="t2_vendor" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 focus:border-radisson-blue outline-none" placeholder="Vendor 2"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="t3_vendor" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 focus:border-radisson-blue outline-none" placeholder="Vendor 3"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="t4_vendor" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 focus:border-radisson-blue outline-none" placeholder="Vendor 4"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="t5_vendor" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 focus:border-radisson-blue outline-none" placeholder="Vendor 5"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="rem_vendor" class="w-full border border-slate-200 rounded px-2 py-1 text-slate-600" placeholder="e.g. Authorized vendor"></td>
-                            </tr>
-
-                            <!-- Row 2: Vehicle Registration -->
-                            <tr class="hover:bg-slate-50 transition">
-                                <td class="py-2 px-2 text-center font-bold text-slate-500">2</td>
-                                <td class="py-2 px-3 font-semibold text-slate-700">Vehicle Registration No.</td>
-                                <td class="py-1.5 px-2"><input type="text" id="t1_reg" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 uppercase font-mono font-bold text-slate-800 focus:border-radisson-blue outline-none" placeholder="KA-09-XX"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="t2_reg" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 uppercase font-mono font-bold text-slate-800 focus:border-radisson-blue outline-none" placeholder="KA-09-XX"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="t3_reg" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 uppercase font-mono font-bold text-slate-800 focus:border-radisson-blue outline-none" placeholder="KA-09-XX"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="t4_reg" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 uppercase font-mono font-bold text-slate-800 focus:border-radisson-blue outline-none" placeholder="KA-09-XX"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="t5_reg" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 uppercase font-mono font-bold text-slate-800 focus:border-radisson-blue outline-none" placeholder="KA-09-XX"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="rem_reg" class="w-full border border-slate-200 rounded px-2 py-1 text-slate-600" placeholder="Plate verified"></td>
-                            </tr>
-
-                            <!-- Row 3: Time-In -->
-                            <tr class="hover:bg-slate-50 transition">
-                                <td class="py-2 px-2 text-center font-bold text-slate-500">3</td>
-                                <td class="py-2 px-3 font-semibold text-slate-700">Time-In (Gate Entry)</td>
-                                <td class="py-1.5 px-2"><input type="time" id="t1_timein" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="time" id="t2_timein" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="time" id="t3_timein" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="time" id="t4_timein" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="time" id="t5_timein" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="rem_timein" class="w-full border border-slate-200 rounded px-2 py-1 text-slate-600" placeholder="Security log match"></td>
-                            </tr>
-
-                            <!-- Row 4: Start Flow Meter Reading -->
-                            <tr class="hover:bg-slate-50 transition bg-blue-50/20">
-                                <td class="py-2 px-2 text-center font-bold text-slate-500">4</td>
-                                <td class="py-2 px-3 font-semibold text-slate-700">Start Flow Meter Reading (Liters / KL)</td>
-                                <td class="py-1.5 px-2"><input type="number" id="t1_start" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="number" id="t2_start" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="number" id="t3_start" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="number" id="t4_start" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="number" id="t5_start" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="rem_start" class="w-full border border-slate-200 rounded px-2 py-1 text-slate-600" placeholder="Initial meter status"></td>
-                            </tr>
-
-                            <!-- Row 5: End Flow Meter Reading -->
-                            <tr class="hover:bg-slate-50 transition bg-blue-50/20">
-                                <td class="py-2 px-2 text-center font-bold text-slate-500">5</td>
-                                <td class="py-2 px-3 font-semibold text-slate-700">End Flow Meter Reading (Liters / KL)</td>
-                                <td class="py-1.5 px-2"><input type="number" id="t1_end" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="number" id="t2_end" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="number" id="t3_end" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="number" id="t4_end" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="number" id="t5_end" oninput="calculateVolumes()" class="w-full text-center border border-slate-300 rounded px-1.5 py-1 font-mono font-semibold focus:border-radisson-blue outline-none" placeholder="0"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="rem_end" class="w-full border border-slate-200 rounded px-2 py-1 text-slate-600" placeholder="Final meter status"></td>
-                            </tr>
-
-                            <!-- AUTOMATICALLY CALCULATED ROW: Net Water Discharged -->
-                            <tr class="bg-amber-50 font-bold border-t-2 border-b-2 border-amber-200">
-                                <td class="py-2 px-2 text-center text-amber-900">CALC</td>
-                                <td class="py-2 px-3 text-amber-900 uppercase tracking-wide">Net Volume Discharged (Liters)</td>
-                                <td class="py-2 px-2 text-center font-mono text-sm text-radisson-navy bg-amber-100/60" id="t1_net">0 L</td>
-                                <td class="py-2 px-2 text-center font-mono text-sm text-radisson-navy bg-amber-100/60" id="t2_net">0 L</td>
-                                <td class="py-2 px-2 text-center font-mono text-sm text-radisson-navy bg-amber-100/60" id="t3_net">0 L</td>
-                                <td class="py-2 px-2 text-center font-mono text-sm text-radisson-navy bg-amber-100/60" id="t4_net">0 L</td>
-                                <td class="py-2 px-2 text-center font-mono text-sm text-radisson-navy bg-amber-100/60" id="t5_net">0 L</td>
-                                <td class="py-2 px-2 text-xs font-semibold text-amber-900" id="totalVolumeSummary">Total Received: 0 L</td>
-                            </tr>
-
-                            <!-- Row 6: Time-Out -->
-                            <tr class="hover:bg-slate-50 transition">
-                                <td class="py-2 px-2 text-center font-bold text-slate-500">6</td>
-                                <td class="py-2 px-3 font-semibold text-slate-700">Time-Out (Gate Exit)</td>
-                                <td class="py-1.5 px-2"><input type="time" id="t1_timeout" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="time" id="t2_timeout" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="time" id="t3_timeout" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="time" id="t4_timeout" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="time" id="t5_timeout" class="w-full text-center border border-slate-300 rounded px-1 py-1 focus:border-radisson-blue outline-none"></td>
-                                <td class="py-1.5 px-2"><input type="text" id="rem_timeout" class="w-full border border-slate-200 rounded px-2 py-1 text-slate-600" placeholder="Gate pass verified"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- PHOTOGRAPHIC EVIDENCE SECTION (POINTS 7 & 8) -->
-            <div class="p-4 sm:p-5 bg-slate-50 border-b border-slate-200">
-                <div class="mb-5 flex flex-col md:flex-row md:items-center justify-between gap-2">
-                    <div>
-                        <h4 class="font-bold text-radisson-navy text-sm uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-camera text-radisson-gold"></i> Photographic Evidence & Physical Verification (Points 7 & 8)
-                        </h4>
-                        <p class="text-xs text-slate-600 mt-0.5">
-                            Postcard Standard (3:2 Ratio) with high-visibility timestamp, location, and inspector watermark overlay.
-                        </p>
-                    </div>
-                    <div class="no-print flex items-center gap-2">
-                        <span class="text-[11px] font-semibold text-slate-500">Auto Watermarking & Compression:</span>
-                        <span class="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-bold">
-                            <i class="fa-solid fa-shield-check"></i> Enabled
-                        </span>
-                    </div>
-                </div>
-
-                <!-- POINT 7: PRE-UNLOADING TOP WATER LEVEL EVIDENCE -->
-                <div class="mb-6 bg-white p-4 rounded-xl border border-slate-300 shadow-xs">
-                    <div class="bg-radisson-navy text-white px-3 py-2 rounded-lg mb-3 flex items-center justify-between">
-                        <span class="font-bold text-xs sm:text-xs uppercase tracking-wide">
-                            Point 7: Top Water Level Photographic Evidence (Pre-Unloading Deck Check)
-                        </span>
-                        <span class="text-[10px] bg-radisson-gold text-radisson-navy font-extrabold px-2 py-0.5 rounded">POINT 7</span>
-                    </div>
-
-                    <!-- 5 Columns Postcard Grid for Point 7 -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 photo-grid">
-                        <!-- Dynamic Photo Card Builder loop for Point 7 (Tankers 1-5) -->
-                        <script>
-                            for(let i=1; i<=5; i++) {
-                                document.write(`
-                                    <div class="border border-slate-300 rounded-lg p-2 bg-slate-50 flex flex-col justify-between">
-                                        <div class="text-[11px] font-bold text-slate-800 mb-1 flex items-center justify-between">
-                                            <span>Tanker ${i} - Top Level</span>
-                                            <span class="text-[9px] text-slate-500 font-normal">Point 7</span>
-                                        </div>
-                                        <div class="postcard-aspect bg-slate-200 rounded border border-slate-300 overflow-hidden relative flex items-center justify-center" id="frame_p7_t${i}">
-                                            <img id="img_p7_t${i}" src="" class="hidden w-full h-full object-cover" alt="Tanker ${i} Top Level">
-                                            <div id="ph_p7_t${i}" class="text-center p-2">
-                                                <i class="fa-solid fa-camera-retro text-slate-400 text-xl mb-1"></i>
-                                                <div class="text-[10px] font-semibold text-slate-500">Upload Top Photo</div>
-                                                <div class="text-[9px] text-slate-400">Postcard (3:2)</div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-2 flex items-center gap-1 no-print">
-                                            <input type="file" id="file_p7_t${i}" accept="image/*" class="hidden" onchange="processUploadedPhoto(event, ${i}, 7)">
-                                            <button onclick="document.getElementById('file_p7_t${i}').click()" class="w-full bg-radisson-navy hover:bg-slate-800 text-white text-[10px] font-semibold py-1 px-2 rounded transition flex items-center justify-center gap-1">
-                                                <i class="fa-solid fa-upload"></i> Upload
-                                            </button>
-                                            <button onclick="previewPhotoModal(${i}, 7)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 py-1 px-2 rounded text-[10px]" title="Preview">
-                                                <i class="fa-solid fa-expand"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                `);
-                            }
-                        </script>
-                    </div>
-                </div>
-
-                <!-- POINT 8: POST-UNLOADING BOTTOM WATER LEVEL EVIDENCE -->
-                <div class="bg-white p-4 rounded-xl border border-slate-300 shadow-xs">
-                    <div class="bg-radisson-navy text-white px-3 py-2 rounded-lg mb-3 flex items-center justify-between">
-                        <span class="font-bold text-xs sm:text-xs uppercase tracking-wide">
-                            Point 8: Bottom Water Level Photographic Evidence (Post-Unloading Deck Check)
-                        </span>
-                        <span class="text-[10px] bg-emerald-500 text-white font-extrabold px-2 py-0.5 rounded">POINT 8</span>
-                    </div>
-
-                    <!-- 5 Columns Postcard Grid for Point 8 -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 photo-grid">
-                        <script>
-                            for(let i=1; i<=5; i++) {
-                                document.write(`
-                                    <div class="border border-slate-300 rounded-lg p-2 bg-slate-50 flex flex-col justify-between">
-                                        <div class="text-[11px] font-bold text-slate-800 mb-1 flex items-center justify-between">
-                                            <span>Tanker ${i} - Bottom Level</span>
-                                            <span class="text-[9px] text-slate-500 font-normal">Point 8</span>
-                                        </div>
-                                        <div class="postcard-aspect bg-slate-200 rounded border border-slate-300 overflow-hidden relative flex items-center justify-center" id="frame_p8_t${i}">
-                                            <img id="img_p8_t${i}" src="" class="hidden w-full h-full object-cover" alt="Tanker ${i} Bottom Level">
-                                            <div id="ph_p8_t${i}" class="text-center p-2">
-                                                <i class="fa-solid fa-camera-retro text-slate-400 text-xl mb-1"></i>
-                                                <div class="text-[10px] font-semibold text-slate-500">Upload Bottom Photo</div>
-                                                <div class="text-[9px] text-slate-400">Postcard (3:2)</div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-2 flex items-center gap-1 no-print">
-                                            <input type="file" id="file_p8_t${i}" accept="image/*" class="hidden" onchange="processUploadedPhoto(event, ${i}, 8)">
-                                            <button onclick="document.getElementById('file_p8_t${i}').click()" class="w-full bg-radisson-navy hover:bg-slate-800 text-white text-[10px] font-semibold py-1 px-2 rounded transition flex items-center justify-center gap-1">
-                                                <i class="fa-solid fa-upload"></i> Upload
-                                            </button>
-                                            <button onclick="previewPhotoModal(${i}, 8)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 py-1 px-2 rounded text-[10px]" title="Preview">
-                                                <i class="fa-solid fa-expand"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                `);
-                            }
-                        </script>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FOOTER NOTICE -->
-            <div class="bg-slate-100 text-center py-2.5 px-4 border-t border-slate-200 text-[10px] text-slate-500 font-medium">
-                Radisson Blu Plaza Hotel Mysore • Loss Prevention & Safety Standard Operating Procedure (SOP-LP-WTR-04) • Confidential Internal Audit Report
-            </div>
-
-        </div>
-    </main>
-
-    <!-- PHOTO LIGHTBOX MODAL -->
-    <div id="photoModal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 no-print">
-        <div class="bg-white rounded-xl max-w-3xl w-full overflow-hidden shadow-2xl">
-            <div class="bg-radisson-navy text-white px-4 py-3 flex items-center justify-between">
-                <h5 class="font-bold text-sm" id="modalTitle">Photo Preview</h5>
-                <button onclick="closeModal()" class="text-slate-300 hover:text-white text-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="p-3 flex items-center justify-center bg-slate-900">
-                <img id="modalImage" src="" class="max-h-[75vh] w-auto object-contain rounded">
-            </div>
-            <div class="p-3 bg-slate-100 flex justify-between items-center text-xs text-slate-600">
-                <span id="modalMeta">Watermarked Photographic Audit Evidence</span>
-                <button onclick="closeModal()" class="bg-slate-700 text-white font-semibold px-4 py-1.5 rounded hover:bg-slate-800">Close</button>
-            </div>
-        </div>
+  <div class="audit-container" id="reportContent">
+    
+    <!-- Action Toolbar -->
+    <div class="action-bar">
+      <button class="btn btn-pdf" onclick="downloadPDF()">Download PDF Report</button>
+      <button class="btn btn-print" onclick="window.print()">Print Audit Log</button>
     </div>
 
-    <!-- CUSTOM NOTIFICATION MODAL (Replaces browser alerts) -->
-    <div id="notifyModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 no-print">
-        <div class="bg-white rounded-lg max-w-md w-full p-5 shadow-xl text-center">
-            <div class="w-12 h-12 bg-blue-100 text-radisson-navy rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
-                <i class="fa-solid fa-circle-info"></i>
-            </div>
-            <h4 class="font-bold text-slate-800 text-base mb-1" id="notifyTitle">System Notification</h4>
-            <p class="text-xs text-slate-600 mb-4" id="notifyMessage">Action performed successfully.</p>
-            <button onclick="closeNotifyModal()" class="bg-radisson-navy text-white text-xs font-semibold px-5 py-2 rounded hover:bg-slate-800 transition">
-                OK
-            </button>
-        </div>
+    <!-- Header Branding -->
+    <div class="report-header">
+      <h1>Radisson Blu Plaza Hotel Mysore</h1>
+      <h2>Water Tanker Audit Log Report & Photographic Verification</h2>
+      <div class="sub-tag">Loss Prevention & Facility Maintenance Compliance Log</div>
     </div>
 
-    <!-- APPLICATION LOGIC & UTILITIES -->
-    <script>
-        // Data store for processed base64 images
-        const photoStore = {};
+    <!-- Metadata Section -->
+    <div class="metadata-grid">
+      <div class="meta-item">
+        <label for="auditDate">Date of Inspection</label>
+        <input type="date" id="auditDate">
+      </div>
+      <div class="meta-item">
+        <label for="inspectorName">Person Who Checked Tanker</label>
+        <input type="text" id="inspectorName" placeholder="Enter Inspector Name">
+      </div>
+      <div class="meta-item">
+        <label for="receivingLocation">Gate / Receiving Location</label>
+        <input type="text" id="receivingLocation" value="Receiving Bay" readonly>
+      </div>
+      <div class="meta-item">
+        <label for="dutyShift">Duty Shift</label>
+        <select id="dutyShift">
+          <option value="Morning Shift">Morning Shift</option>
+          <option value="General Shift" selected>General Shift</option>
+          <option value="Evening Shift">Evening Shift</option>
+          <option value="Night Shift">Night Shift</option>
+        </select>
+      </div>
+    </div>
 
-        /**
-         * Safely set text content for security against XSS
-         */
-        function safeSetText(elementId, text) {
-            const el = document.getElementById(elementId);
-            if (el) el.textContent = text;
-        }
+    <!-- Operational Log Table -->
+    <div class="table-responsive">
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th style="width: 40px;">S.No</th>
+            <th style="width: 250px;">Inspection Parameter / Description</th>
+            <th>Tanker 1</th>
+            <th>Tanker 2</th>
+            <th>Tanker 3</th>
+            <th>Tanker 4</th>
+            <th>Tanker 5</th>
+            <th>Audit Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="sno">1</td>
+            <td class="param-name">Vendor / Supplier Name</td>
+            <td><input type="text" placeholder="Vendor 1"></td>
+            <td><input type="text" placeholder="Vendor 2"></td>
+            <td><input type="text" placeholder="Vendor 3"></td>
+            <td><input type="text" placeholder="Vendor 4"></td>
+            <td><input type="text" placeholder="Vendor 5"></td>
+            <td><input type="text" placeholder="Remarks"></td>
+          </tr>
+          <tr>
+            <td class="sno">2</td>
+            <td class="param-name">Vehicle Registration No.</td>
+            <td><input type="text" placeholder="Vehicle No."></td>
+            <td><input type="text" placeholder="Vehicle No."></td>
+            <td><input type="text" placeholder="Vehicle No."></td>
+            <td><input type="text" placeholder="Vehicle No."></td>
+            <td><input type="text" placeholder="Vehicle No."></td>
+            <td><input type="text" placeholder="Plate check"></td>
+          </tr>
+          <tr>
+            <td class="sno">3</td>
+            <td class="param-name">Time-In (Gate Entry)</td>
+            <td><input type="time"></td>
+            <td><input type="time"></td>
+            <td><input type="time"></td>
+            <td><input type="time"></td>
+            <td><input type="time"></td>
+            <td><input type="text" placeholder="Entry time"></td>
+          </tr>
+          <tr>
+            <td class="sno">4</td>
+            <td class="param-name">Start Flow Meter Reading (Liters / KL)</td>
+            <td><input type="number" class="start-val" data-tanker="1" oninput="calcNet(1)" placeholder="0"></td>
+            <td><input type="number" class="start-val" data-tanker="2" oninput="calcNet(2)" placeholder="0"></td>
+            <td><input type="number" class="start-val" data-tanker="3" oninput="calcNet(3)" placeholder="0"></td>
+            <td><input type="number" class="start-val" data-tanker="4" oninput="calcNet(4)" placeholder="0"></td>
+            <td><input type="number" class="start-val" data-tanker="5" oninput="calcNet(5)" placeholder="0"></td>
+            <td><input type="text" placeholder="Initial reading"></td>
+          </tr>
+          <tr>
+            <td class="sno">5</td>
+            <td class="param-name">End Flow Meter Reading (Liters / KL)</td>
+            <td><input type="number" class="end-val" data-tanker="1" oninput="calcNet(1)" placeholder="0"></td>
+            <td><input type="number" class="end-val" data-tanker="2" oninput="calcNet(2)" placeholder="0"></td>
+            <td><input type="number" class="end-val" data-tanker="3" oninput="calcNet(3)" placeholder="0"></td>
+            <td><input type="number" class="end-val" data-tanker="4" oninput="calcNet(4)" placeholder="0"></td>
+            <td><input type="number" class="end-val" data-tanker="5" oninput="calcNet(5)" placeholder="0"></td>
+            <td><input type="text" placeholder="Final reading"></td>
+          </tr>
+          <tr class="calc-row">
+            <td class="sno">CALC</td>
+            <td class="param-name">Net Volume Discharged (End - Start)</td>
+            <td class="calc-val" id="net-1">0 L</td>
+            <td class="calc-val" id="net-2">0 L</td>
+            <td class="calc-val" id="net-3">0 L</td>
+            <td class="calc-val" id="net-4">0 L</td>
+            <td class="calc-val" id="net-5">0 L</td>
+            <td class="calc-val" id="net-total">Total: 0 L</td>
+          </tr>
+          <tr>
+            <td class="sno">6</td>
+            <td class="param-name">Time-Out (Gate Exit)</td>
+            <td><input type="time"></td>
+            <td><input type="time"></td>
+            <td><input type="time"></td>
+            <td><input type="time"></td>
+            <td><input type="time"></td>
+            <td><input type="text" placeholder="Exit log"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-        /**
-         * Custom Notification Modal
-         */
-        function showNotification(title, message) {
-            safeSetText('notifyTitle', title);
-            safeSetText('notifyMessage', message);
-            document.getElementById('notifyModal').classList.remove('hidden');
-        }
+    <!-- Photographic Evidence Section -->
+    <div class="photos-section">
+      
+      <!-- Point 7 -->
+      <div class="section-title">
+        <span>POINT 7: TOP WATER LEVEL PHOTOGRAPHIC EVIDENCE (PRE-UNLOADING DECK CHECK)</span>
+        <span>POINT 7</span>
+      </div>
+      <div class="photo-grid">
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 1 - Top Level</div>
+          <div class="photo-frame"><img id="img-p7-1"><div class="photo-placeholder" id="ph-p7-1">Upload Top Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p7-1" class="upload-label">Upload Photo</label><input type="file" id="file-p7-1" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 1)"></div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 2 - Top Level</div>
+          <div class="photo-frame"><img id="img-p7-2"><div class="photo-placeholder" id="ph-p7-2">Upload Top Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p7-2" class="upload-label">Upload Photo</label><input type="file" id="file-p7-2" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 2)"></div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 3 - Top Level</div>
+          <div class="photo-frame"><img id="img-p7-3"><div class="photo-placeholder" id="ph-p7-3">Upload Top Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p7-3" class="upload-label">Upload Photo</label><input type="file" id="file-p7-3" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 3)"></div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 4 - Top Level</div>
+          <div class="photo-frame"><img id="img-p7-4"><div class="photo-placeholder" id="ph-p7-4">Upload Top Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p7-4" class="upload-label">Upload Photo</label><input type="file" id="file-p7-4" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 4)"></div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 5 - Top Level</div>
+          <div class="photo-frame"><img id="img-p7-5"><div class="photo-placeholder" id="ph-p7-5">Upload Top Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p7-5" class="upload-label">Upload Photo</label><input type="file" id="file-p7-5" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 5)"></div>
+        </div>
+      </div>
 
-        function closeNotifyModal() {
-            document.getElementById('notifyModal').classList.add('hidden');
-        }
+      <!-- Point 8 -->
+      <div class="section-title" style="margin-top: 30px;">
+        <span>POINT 8: BOTTOM WATER LEVEL PHOTOGRAPHIC EVIDENCE (POST-UNLOADING DECK CHECK)</span>
+        <span>POINT 8</span>
+      </div>
+      <div class="photo-grid">
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 1 - Bottom Level</div>
+          <div class="photo-frame"><img id="img-p8-1"><div class="photo-placeholder" id="ph-p8-1">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p8-1" class="upload-label">Upload Photo</label><input type="file" id="file-p8-1" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 1)"></div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 2 - Bottom Level</div>
+          <div class="photo-frame"><img id="img-p8-2"><div class="photo-placeholder" id="ph-p8-2">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p8-2" class="upload-label">Upload Photo</label><input type="file" id="file-p8-2" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 2)"></div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 3 - Bottom Level</div>
+          <div class="photo-frame"><img id="img-p8-3"><div class="photo-placeholder" id="ph-p8-3">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p8-3" class="upload-label">Upload Photo</label><input type="file" id="file-p8-3" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 3)"></div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 4 - Bottom Level</div>
+          <div class="photo-frame"><img id="img-p8-4"><div class="photo-placeholder" id="ph-p8-4">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p8-4" class="upload-label">Upload Photo</label><input type="file" id="file-p8-4" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 4)"></div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-card-title">Tanker 5 - Bottom Level</div>
+          <div class="photo-frame"><img id="img-p8-5"><div class="photo-placeholder" id="ph-p8-5">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
+          <div class="photo-actions"><label for="file-p8-5" class="upload-label">Upload Photo</label><input type="file" id="file-p8-5" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 5)"></div>
+        </div>
+      </div>
 
-        /**
-         * Calculate Net Water Volume (End Meter - Start Meter) for Tankers 1-5
-         */
-        function calculateVolumes() {
-            let totalVolume = 0;
-            for (let i = 1; i <= 5; i++) {
-                const startVal = parseFloat(document.getElementById(`t${i}_start`).value) || 0;
-                const endVal = parseFloat(document.getElementById(`t${i}_end`).value) || 0;
-                const netEl = document.getElementById(`t${i}_net`);
+    </div>
 
-                if (endVal >= startVal && startVal > 0) {
-                    const net = endVal - startVal;
-                    netEl.textContent = `${net.toLocaleString()} L`;
-                    netEl.className = "py-2 px-2 text-center font-mono text-sm text-radisson-navy bg-amber-100/60 font-bold";
-                    totalVolume += net;
-                } else if (endVal > 0 && endVal < startVal) {
-                    netEl.textContent = "Error (End < Start)";
-                    netEl.className = "py-2 px-2 text-center font-mono text-xs text-red-600 bg-red-100 font-bold";
-                } else {
-                    netEl.textContent = "0 L";
-                    netEl.className = "py-2 px-2 text-center font-mono text-sm text-radisson-navy bg-amber-100/60 font-bold";
-                }
-            }
-            safeSetText('totalVolumeSummary', `Total Received: ${totalVolume.toLocaleString()} Liters`);
-        }
+  </div>
 
-        /**
-         * HTML5 Canvas Image Watermarking & Compression (Postcard 1200x800 - 3:2 Ratio)
-         */
-        function processUploadedPhoto(event, tankerIdx, pointType) {
-            const file = event.target.files[0];
-            if (!file) return;
+  <script>
+    // Set Default Date to Today
+    document.getElementById('auditDate').valueAsDate = new Date();
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    // Standard 3:2 Postcard Canvas (1200x800)
-                    const canvas = document.createElement('canvas');
-                    canvas.width = 1200;
-                    canvas.height = 800;
-                    const ctx = canvas.getContext('2d');
+    // Auto-calculate Net Discharged Volume
+    function calcNet(tankerId) {
+      const startInputs = document.querySelectorAll('.start-val');
+      const endInputs = document.querySelectorAll('.end-val');
+      
+      let start = parseFloat(startInputs[tankerId - 1].value) || 0;
+      let end = parseFloat(endInputs[tankerId - 1].value) || 0;
+      
+      let net = end >= start ? (end - start) : 0;
+      document.getElementById(`net-${tankerId}`).textContent = net.toLocaleString() + ' L';
 
-                    // Draw image scaled to fit 1200x800 frame
-                    ctx.drawImage(img, 0, 0, 1200, 800);
+      let total = 0;
+      for(let i=1; i<=5; i++) {
+        let s = parseFloat(startInputs[i - 1].value) || 0;
+        let e = parseFloat(endInputs[i - 1].value) || 0;
+        if(e >= s) total += (e - s);
+      }
+      document.getElementById('net-total').textContent = 'Total: ' + total.toLocaleString() + ' L';
+    }
 
-                    // Overlay Watermark Banner at Bottom
-                    ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
-                    ctx.fillRect(0, 700, 1200, 100);
+    // Process Image & Burn Timestamp Watermark
+    function processImage(input, point, tankerId) {
+      if (!input.files || !input.files[0]) return;
 
-                    // Gold Border Accent line
-                    ctx.fillStyle = '#C5A059';
-                    ctx.fillRect(0, 696, 1200, 4);
+      const file = input.files[0];
+      const reader = new FileReader();
 
-                    // Watermark Text - Primary Title
-                    ctx.fillStyle = '#C5A059'; // Radisson Gold
-                    ctx.font = 'bold 24px Inter, sans-serif';
-                    const pointLabel = pointType === 7 ? 'POINT 7: TOP WATER LEVEL (PRE-UNLOAD)' : 'POINT 8: BOTTOM WATER LEVEL (POST-UNLOAD)';
-                    ctx.fillText(`RADISSON BLU MYSORE | TANKER #${tankerIdx} - ${pointLabel}`, 25, 735);
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement('canvas');
+          canvas.width = 1200;
+          canvas.height = 800;
+          const ctx = canvas.getContext('2d');
 
-                    // Watermark Text - Sub Details
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.font = '20px Inter, sans-serif';
-                    const now = new Date();
-                    const timestampStr = now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString();
-                    const inspectorName = document.getElementById('metaInspector').value.trim() || 'LP INSPECTOR';
-                    ctx.fillText(`TIMESTAMP: ${timestampStr} | LOCATION: RECEIVING BAY | INSPECTOR: ${inspectorName}`, 25, 770);
+          ctx.drawImage(img, 0, 0, 1200, 800);
 
-                    // Compress to JPEG at 0.8 quality (keeps payload under ~100KB per image)
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.80);
+          // Watermark Overlay Banner
+          ctx.fillStyle = 'rgba(27, 54, 93, 0.85)';
+          ctx.fillRect(0, 720, 1200, 80);
 
-                    // Render image in UI
-                    const imgEl = document.getElementById(`img_p${pointType}_t${tankerIdx}`);
-                    const phEl = document.getElementById(`ph_p${pointType}_t${tankerIdx}`);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 24px Inter, sans-serif';
+          
+          const pointLabel = point === 'p7' ? 'POINT 7: TOP WATER LEVEL (PRE-UNLOAD)' : 'POINT 8: BOTTOM WATER LEVEL (POST-UNLOAD)';
+          const inspector = document.getElementById('inspectorName').value || 'INSPECTOR UNNAMED';
+          const now = new Date();
+          const dateStr = now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
-                    imgEl.src = dataUrl;
-                    imgEl.classList.remove('hidden');
-                    phEl.classList.add('hidden');
+          ctx.fillText(`RADISSON BLU MYSORE | TANKER #${tankerId} - ${pointLabel}`, 30, 752);
+          
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = '20px Inter, sans-serif';
+          ctx.fillText(`TIMESTAMP: ${dateStr} | LOCATION: RECEIVING BAY | CHECKED BY: ${inspector}`, 30, 782);
 
-                    // Save in store
-                    photoStore[`p${pointType}_t${tankerIdx}`] = dataUrl;
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.75);
 
-                    updateEstimatedPayloadSize();
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
+          const targetImg = document.getElementById(`img-${point}-${tankerId}`);
+          const targetPh = document.getElementById(`ph-${point}-${tankerId}`);
 
-        /**
-         * Lightbox Preview
-         */
-        function previewPhotoModal(tankerIdx, pointType) {
-            const key = `p${pointType}_t${tankerIdx}`;
-            const imgEl = document.getElementById(`img_${key}`);
-
-            if (imgEl && imgEl.src && !imgEl.classList.contains('hidden')) {
-                document.getElementById('modalImage').src = imgEl.src;
-                safeSetText('modalTitle', `Tanker ${tankerIdx} - Point ${pointType} Photo Evidence`);
-                safeSetText('modalMeta', pointType === 7 ? 'Point 7: Top Water Level (Pre-Unloading Deck Inspection)' : 'Point 8: Bottom Water Level (Post-Unloading Deck Inspection)');
-                document.getElementById('photoModal').classList.remove('hidden');
-            } else {
-                showNotification("No Photo Uploaded", `Please upload a photo for Tanker ${tankerIdx} (Point ${pointType}) first.`);
-            }
-        }
-
-        function closeModal() {
-            document.getElementById('photoModal').classList.add('hidden');
-        }
-
-        /**
-         * Live Payload Size Tracker to Guarantee <10 MB Attachment Limit
-         */
-        function updateEstimatedPayloadSize() {
-            let bytes = 0;
-            Object.values(photoStore).forEach(url => {
-                bytes += url.length * (3/4);
-            });
-            const sizeMB = (bytes / (1024 * 1024) + 0.25).toFixed(2);
-            safeSetText('calculatedSize', `~${sizeMB} MB`);
-        }
-
-        /**
-         * Clear / Reset Audit Form
-         */
-        function resetAuditForm() {
-            if (confirm("Are you sure you want to clear all entered tanker log data and uploaded photos?")) {
-                for (let i = 1; i <= 5; i++) {
-                    document.getElementById(`t${i}_vendor`).value = "";
-                    document.getElementById(`t${i}_reg`).value = "";
-                    document.getElementById(`t${i}_timein`).value = "";
-                    document.getElementById(`t${i}_start`).value = "";
-                    document.getElementById(`t${i}_end`).value = "";
-                    document.getElementById(`t${i}_timeout`).value = "";
-                    document.getElementById(`t${i}_net`).textContent = "0 L";
-
-                    [7, 8].forEach(pt => {
-                        const img = document.getElementById(`img_p${pt}_t${i}`);
-                        const ph = document.getElementById(`ph_p${pt}_t${i}`);
-                        img.src = "";
-                        img.classList.add('hidden');
-                        ph.classList.remove('hidden');
-                        delete photoStore[`p${pt}_t${i}`];
-                    });
-                }
-                calculateVolumes();
-                updateEstimatedPayloadSize();
-            }
-        }
-
-        /**
-         * Export Audit Log Report to Excel (.xlsx) using SheetJS
-         */
-        function exportToExcelSheetJS() {
-            const inspDate = document.getElementById('metaDate').value || '2026-11-06';
-            const inspector = document.getElementById('metaInspector').value || 'Unassigned';
-            const location = document.getElementById('metaLocation').value;
-            const shift = document.getElementById('metaShift').value;
-
-            // Sheet Data Matrix
-            const wsData = [
-                ["RADISSON BLU PLAZA HOTEL MYSORE"],
-                ["WATER TANKER AUDIT LOG REPORT"],
-                [""],
-                ["Inspection Date:", inspDate, "", "Person Checked:", inspector],
-                ["Receiving Location:", location, "", "Duty Shift:", shift],
-                [""],
-                ["S.No", "Parameter Description", "Tanker 1", "Tanker 2", "Tanker 3", "Tanker 4", "Tanker 5", "Audit Remarks"]
-            ];
-
-            const paramRows = [
-                { label: "1. Vendor / Supplier Name", key: "vendor" },
-                { label: "2. Vehicle Registration No.", key: "reg" },
-                { label: "3. Time-In (Gate Entry)", key: "timein" },
-                { label: "4. Start Flow Meter Reading (L)", key: "start" },
-                { label: "5. End Flow Meter Reading (L)", key: "end" },
-                { label: "CALC. Net Volume Discharged (L)", key: "net" },
-                { label: "6. Time-Out (Gate Exit)", key: "timeout" }
-            ];
-
-            paramRows.forEach((p, idx) => {
-                const row = [idx + 1, p.label];
-                for (let i = 1; i <= 5; i++) {
-                    if (p.key === 'net') {
-                        row.push(document.getElementById(`t${i}_net`).textContent);
-                    } else {
-                        row.push(document.getElementById(`t${i}_${p.key}`).value || "-");
-                    }
-                }
-                const remKey = p.key === 'net' ? 'start' : p.key;
-                row.push(document.getElementById(`rem_${remKey}`)?.value || "");
-                wsData.push(row);
-            });
-
-            wsData.push([""]);
-            wsData.push(["PHOTOGRAPHIC EVIDENCE VERIFICATION STATUS (POINTS 7 & 8)"]);
-            
-            const pt7Status = ["Point 7 (Pre-Unload Top Level Photo)"];
-            const pt8Status = ["Point 8 (Post-Unload Bottom Level Photo)"];
-            for (let i = 1; i <= 5; i++) {
-                pt7Status.push(photoStore[`p7_t${i}`] ? "ATTACHED & VERIFIED" : "PENDING");
-                pt8Status.push(photoStore[`p8_t${i}`] ? "ATTACHED & VERIFIED" : "PENDING");
-            }
-            wsData.push(pt7Status);
-            wsData.push(pt8Status);
-
-            // Create Workbook
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-
-            // Auto Column Widths
-            ws['!cols'] = [
-                { wch: 6 },
-                { wch: 34 },
-                { wch: 18 },
-                { wch: 18 },
-                { wch: 18 },
-                { wch: 18 },
-                { wch: 18 },
-                { wch: 24 }
-            ];
-
-            XLSX.utils.book_append_sheet(wb, ws, "Tanker Audit Log");
-            XLSX.writeFile(wb, `Water_Tanker_Audit_Report_${inspDate}.xlsx`);
-        }
-
-        /**
-         * Export Audit Document to PDF using html2pdf.js / window.print fallback
-         */
-        function exportToPDFHtml2Pdf() {
-            const element = document.getElementById('auditReportDocument');
-            const inspDate = document.getElementById('metaDate').value || '2026-11-06';
-
-            if (typeof html2pdf !== 'undefined') {
-                const opt = {
-                    margin:       [4, 4, 4, 4],
-                    filename:     `Water_Tanker_Audit_Report_${inspDate}.pdf`,
-                    image:        { type: 'jpeg', quality: 0.85 },
-                    html2canvas:  { scale: 2, useCORS: true, logging: false },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
-                };
-
-                html2pdf().set(opt).from(element).save().then(() => {
-                    showNotification("PDF Export Complete", "The audit report PDF has been downloaded successfully.");
-                }).catch(() => {
-                    window.print();
-                });
-            } else {
-                window.print();
-            }
-        }
-
-        // Initialize defaults on page load
-        window.onload = function() {
-            calculateVolumes();
-            updateEstimatedPayloadSize();
+          targetImg.src = dataUrl;
+          targetImg.style.display = 'block';
+          targetPh.style.display = 'none';
         };
-    </script>
+        img.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    // PDF Export Function
+    function downloadPDF() {
+      const element = document.getElementById('reportContent');
+      const dateStr = document.getElementById('auditDate').value || 'Log';
+
+      const opt = {
+        margin:       [8, 8, 8, 8],
+        filename:     `Water_Tanker_Audit_Report_${dateStr}.pdf`,
+        image:        { type: 'jpeg', quality: 0.8 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
+        pagebreak:    { mode: ['css', 'legacy'] }
+      };
+
+      document.querySelector('.action-bar').style.display = 'none';
+
+      html2pdf().set(opt).from(element).save().then(() => {
+        document.querySelector('.action-bar').style.display = 'flex';
+      });
+    }
+  </script>
+
 </body>
 </html>
