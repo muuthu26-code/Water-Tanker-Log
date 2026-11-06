@@ -386,6 +386,22 @@
       display: none;
     }
 
+    /* Vector Timestamp Badge Under Photo */
+    .timestamp-badge {
+      width: 100%;
+      margin-top: 4px;
+      padding: 4px 6px;
+      background-color: #0f172a;
+      color: #ffd700;
+      font-size: 10px;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 4px;
+      letter-spacing: 0.3px;
+      border: 1px solid #1e293b;
+      display: none;
+    }
+
     /* Responsive Design for Mobile Vertical / Portrait View */
     @media screen and (max-width: 768px) {
       body {
@@ -502,25 +518,63 @@
       padding: 4px 2px !important;
     }
 
-    .pdf-rendering .action-bar {
+    /* Hide toolbar & snap buttons strictly in PDF export */
+    .pdf-rendering .action-bar,
+    .pdf-rendering .photo-actions,
+    .pdf-rendering .upload-label {
       display: none !important;
     }
 
     /* Print & PDF Export Formatting */
     @media print {
-      body {
-        background: #ffffff;
-        padding: 0;
+      @page {
+        size: A4 landscape;
+        margin: 8mm;
       }
 
-      .action-bar, .photo-actions {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .action-bar, .photo-actions, .upload-label {
         display: none !important;
       }
 
       .audit-container {
-        box-shadow: none;
-        padding: 0;
-        max-width: 100%;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+
+      .log-table {
+        font-size: 10px !important;
+      }
+
+      .log-table th, .log-table td {
+        padding: 4px 2px !important;
+      }
+
+      .log-table input {
+        border: none !important;
+        background: transparent !important;
+        font-size: 10px !important;
+        padding: 2px !important;
+      }
+
+      .photo-grid {
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 6px !important;
+        padding: 6px !important;
+      }
+
+      .photo-card {
+        padding: 4px !important;
       }
 
       .photo-frame {
@@ -674,6 +728,7 @@
           <div class="photo-card-title">Tanker 1 - Top Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p7-1"><div class="photo-placeholder" id="ph-p7-1">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p7-1">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p7-1" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-1" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 1)">
@@ -684,6 +739,7 @@
           <div class="photo-card-title">Tanker 2 - Top Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p7-2"><div class="photo-placeholder" id="ph-p7-2">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p7-2">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p7-2" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-2" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 2)">
@@ -694,6 +750,7 @@
           <div class="photo-card-title">Tanker 3 - Top Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p7-3"><div class="photo-placeholder" id="ph-p7-3">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p7-3">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p7-3" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-3" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 3)">
@@ -704,6 +761,7 @@
           <div class="photo-card-title">Tanker 4 - Top Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p7-4"><div class="photo-placeholder" id="ph-p7-4">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p7-4">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p7-4" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-4" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 4)">
@@ -714,6 +772,7 @@
           <div class="photo-card-title">Tanker 5 - Top Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p7-5"><div class="photo-placeholder" id="ph-p7-5">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p7-5">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p7-5" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p7-5" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 5)">
@@ -731,6 +790,7 @@
           <div class="photo-card-title">Tanker 1 - Bottom Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p8-1"><div class="photo-placeholder" id="ph-p8-1">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p8-1">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p8-1" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-1" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 1)">
@@ -741,6 +801,7 @@
           <div class="photo-card-title">Tanker 2 - Bottom Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p8-2"><div class="photo-placeholder" id="ph-p8-2">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p8-2">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p8-2" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-2" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 2)">
@@ -751,6 +812,7 @@
           <div class="photo-card-title">Tanker 3 - Bottom Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p8-3"><div class="photo-placeholder" id="ph-p8-3">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p8-3">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p8-3" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-3" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 3)">
@@ -761,6 +823,7 @@
           <div class="photo-card-title">Tanker 4 - Bottom Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p8-4"><div class="photo-placeholder" id="ph-p8-4">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p8-4">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p8-4" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-4" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 4)">
@@ -771,6 +834,7 @@
           <div class="photo-card-title">Tanker 5 - Bottom Level</div>
           <div class="photo-card-subtitle">4R (4" × 6" / 102 × 152 mm)</div>
           <div class="photo-frame"><img id="img-p8-5"><div class="photo-placeholder" id="ph-p8-5">4R Photo Slot<br>(4" × 6" / 102×152 mm)</div></div>
+          <div class="timestamp-badge" id="badge-p8-5">DATE: --/--/---- | TIME: --:--:--</div>
           <div class="photo-actions">
             <label for="cam-p8-5" class="upload-label">📷 Snap Photo</label>
             <input type="file" id="cam-p8-5" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 5)">
@@ -845,34 +909,40 @@
           const dateStr = now.toLocaleDateString('en-GB'); // DD/MM/YYYY
           const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
 
-          // High-Contrast Dark Overlay Banner
-          ctx.fillStyle = 'rgba(15, 23, 42, 0.90)';
-          ctx.fillRect(0, 1120, 1800, 80);
+          // High-Contrast Dark Overlay Banner (Taller & Larger for clear visibility)
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+          ctx.fillRect(0, 1060, 1800, 140);
 
           // Accent Gold Separator Line
           ctx.fillStyle = '#FFD700';
-          ctx.fillRect(0, 1116, 1800, 4);
+          ctx.fillRect(0, 1054, 1800, 6);
 
-          // Ultra-Crisp Bold Gold Timestamp (Date & Time ONLY)
+          // Ultra-Crisp Bold Gold Timestamp (Enlarged 64px font size for prominent legibility)
           ctx.fillStyle = '#FFD700';
-          ctx.font = 'bold 34px Inter, Arial, sans-serif';
+          ctx.font = 'bold 64px Inter, Arial, sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText(`DATE: ${dateStr}   |   TIME: ${timeStr}`, 900, 1160);
+          ctx.fillText(`DATE: ${dateStr}   |   TIME: ${timeStr}`, 900, 1130);
 
           // Reset context alignment
           ctx.textAlign = 'left';
           ctx.textBaseline = 'alphabetic';
 
-          // Export high-fidelity JPEG at 0.95 quality for crisp 4R printing
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+          // Export high-fidelity JPEG at 0.98 quality for crisp 4R printing
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.98);
 
           const targetImg = document.getElementById(`img-${point}-${tankerId}`);
           const targetPh = document.getElementById(`ph-${point}-${tankerId}`);
+          const targetBadge = document.getElementById(`badge-${point}-${tankerId}`);
 
           targetImg.src = dataUrl;
           targetImg.style.display = 'block';
           targetPh.style.display = 'none';
+
+          if (targetBadge) {
+            targetBadge.textContent = `DATE: ${dateStr} | TIME: ${timeStr}`;
+            targetBadge.style.display = 'block';
+          }
         };
         img.src = e.target.result;
       };
@@ -902,8 +972,8 @@
       const opt = {
         margin:       [6, 6, 6, 6],
         filename:     `Water_Tanker_Audit_Report_${dateStr}.pdf`,
-        image:        { type: 'jpeg', quality: 0.90 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false, windowWidth: 1050 },
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 3, useCORS: true, logging: false, windowWidth: 1050 },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
         pagebreak:    { mode: ['css', 'legacy'] }
       };
