@@ -747,6 +747,13 @@
           const targetImg = document.getElementById(`img-${point}-${tankerId}`);
           const targetPh = document.getElementById(`ph-${point}-${tankerId}`);
 
+          // Remove any external timestamp badge element if present in DOM
+          const card = targetImg.closest('.photo-card');
+          if (card) {
+            const existingBadge = card.querySelector('.timestamp-badge');
+            if (existingBadge) existingBadge.remove();
+          }
+
           targetImg.src = dataUrl;
           targetImg.style.display = 'block';
           targetPh.style.display = 'none';
@@ -821,6 +828,11 @@
             const img = document.getElementById(`img-${point}-${id}`);
             const ph = document.getElementById(`ph-${point}-${id}`);
             if (img && data.images[key].src) {
+              const card = img.closest('.photo-card');
+              if (card) {
+                const existingBadge = card.querySelector('.timestamp-badge');
+                if (existingBadge) existingBadge.remove();
+              }
               img.src = data.images[key].src;
               img.style.display = 'block';
               if (ph) ph.style.display = 'none';
