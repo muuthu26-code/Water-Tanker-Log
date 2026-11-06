@@ -172,6 +172,48 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 12px;
+      table-layout: fixed;
+    }
+
+    .log-table th {
+      background-color: var(--primary-navy);
+      color: #ffffff;
+      padding: 10px 8px;
+      text-align: center;
+      font-weight: 600;
+      border: 1px solid #0f2342;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .log-table td {
+      padding: 8px 4px;
+      border: 1px solid var(--border-gray);
+      text-align: center;
+      vertical-align: middle;
+      overflow: hidden;
+    }
+
+    .log-table td.param-name {
+      text-align: left;
+      font-weight: 600;
+      background-color: var(--bg-light);
+    }
+
+    .log-table td.sno {
+      font-weight: 700;
+      background-color: var(--bg-light);
+    }
+
+    .log-table input {
+      width: 100%;
+      padding: 6px 4px;
+      font-size: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      text-align: center;
+      box-sizing: border-box;
     }
 
     .log-table th {
@@ -266,6 +308,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .photo-card-title {
@@ -274,40 +318,9 @@
       color: var(--primary-navy);
       margin-bottom: 6px;
       text-align: center;
-    }
-
-    /* Postcard 3:2 Ratio Frame */
-    .photo-frame {
-      width: 100%;
-      aspect-ratio: 3 / 2;
-      background-color: #f1f5f9;
-      border: 1px dashed #94a3b8;
-      border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
+      white-space: nowrap;
       overflow: hidden;
-    }
-
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
-
-    .photo-placeholder {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-align: center;
-      padding: 5px;
-    }
-
-    /* Single Snap Action Button */
-    .photo-actions {
-      margin-top: 8px;
+      text-overflow: ellipsis;
       width: 100%;
     }
 
@@ -411,17 +424,42 @@
 
     /* PDF Rendering Layout Enforcement (Preserves Landscape Grid on Mobile PDF Export) */
     .pdf-rendering {
-      width: 1150px !important;
-      max-width: none !important;
-      padding: 20px !important;
+      width: 1000px !important;
+      max-width: 1000px !important;
+      padding: 15px !important;
+      margin: 0 auto !important;
+      box-sizing: border-box !important;
     }
 
     .pdf-rendering .metadata-grid {
       grid-template-columns: repeat(4, 1fr) !important;
+      gap: 10px !important;
     }
 
     .pdf-rendering .photo-grid {
       grid-template-columns: repeat(5, 1fr) !important;
+      gap: 6px !important;
+      padding: 8px !important;
+    }
+
+    .pdf-rendering .photo-card {
+      padding: 5px !important;
+    }
+
+    .pdf-rendering .log-table {
+      table-layout: fixed !important;
+      width: 100% !important;
+    }
+
+    .pdf-rendering .log-table th, 
+    .pdf-rendering .log-table td {
+      padding: 5px 3px !important;
+      font-size: 11px !important;
+    }
+
+    .pdf-rendering .log-table input {
+      font-size: 10px !important;
+      padding: 4px 2px !important;
     }
 
     .pdf-rendering .action-bar {
@@ -498,14 +536,14 @@
       <table class="log-table">
         <thead>
           <tr>
-            <th style="width: 40px;">S.No</th>
-            <th style="width: 250px;">Inspection Parameter / Description</th>
-            <th>Tanker 1</th>
-            <th>Tanker 2</th>
-            <th>Tanker 3</th>
-            <th>Tanker 4</th>
-            <th>Tanker 5</th>
-            <th>Audit Remarks</th>
+            <th style="width: 35px;">S.No</th>
+            <th style="width: 210px;">Inspection Parameter / Description</th>
+            <th style="width: 110px;">Tanker 1</th>
+            <th style="width: 110px;">Tanker 2</th>
+            <th style="width: 110px;">Tanker 3</th>
+            <th style="width: 110px;">Tanker 4</th>
+            <th style="width: 110px;">Tanker 5</th>
+            <th style="width: 150px;">Audit Remarks</th>
           </tr>
         </thead>
         <tbody>
@@ -812,10 +850,10 @@
       });
 
       const opt = {
-        margin:       [8, 8, 8, 8],
+        margin:       [6, 6, 6, 6],
         filename:     `Water_Tanker_Audit_Report_${dateStr}.pdf`,
-        image:        { type: 'jpeg', quality: 0.85 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        image:        { type: 'jpeg', quality: 0.90 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false, windowWidth: 1050 },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
         pagebreak:    { mode: ['css', 'legacy'] }
       };
