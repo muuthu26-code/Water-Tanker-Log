@@ -333,6 +333,101 @@
       display: none;
     }
 
+    /* Responsive Design for Mobile Vertical / Portrait View */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 8px;
+      }
+
+      .audit-container {
+        padding: 14px 10px;
+        border-radius: 6px;
+      }
+
+      .action-bar {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .report-header h1 {
+        font-size: 17px;
+      }
+
+      .report-header h2 {
+        font-size: 13px;
+      }
+
+      .metadata-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .log-table input {
+        min-width: 70px;
+        font-size: 11px;
+        padding: 5px 2px;
+      }
+
+      .section-title {
+        font-size: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 8px 12px;
+      }
+
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .metadata-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-card-title {
+        font-size: 12px;
+      }
+
+      .upload-label {
+        padding: 10px 0;
+        font-size: 12px;
+      }
+    }
+
+    /* PDF Rendering Layout Enforcement (Preserves Landscape Grid on Mobile PDF Export) */
+    .pdf-rendering {
+      width: 1150px !important;
+      max-width: none !important;
+      padding: 20px !important;
+    }
+
+    .pdf-rendering .metadata-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+
+    .pdf-rendering .photo-grid {
+      grid-template-columns: repeat(5, 1fr) !important;
+    }
+
+    .pdf-rendering .action-bar {
+      display: none !important;
+    }
+
     /* Print & PDF Export Formatting */
     @media print {
       body {
@@ -702,6 +797,9 @@
       const element = document.getElementById('reportContent');
       const dateStr = document.getElementById('auditDate').value || 'Log';
 
+      // Temporarily enforce desktop landscape layout for crisp PDF export even on mobile devices
+      element.classList.add('pdf-rendering');
+
       // Dynamically sync user input values into attributes for 100% canvas rendering accuracy
       const inputs = element.querySelectorAll('input, select');
       inputs.forEach(input => {
@@ -726,9 +824,11 @@
       if (actionBar) actionBar.style.display = 'none';
 
       html2pdf().set(opt).from(element).save().then(() => {
+        element.classList.remove('pdf-rendering');
         if (actionBar) actionBar.style.display = 'flex';
       }).catch(err => {
         console.error('PDF export error:', err);
+        element.classList.remove('pdf-rendering');
         if (actionBar) actionBar.style.display = 'flex';
       });
     }
