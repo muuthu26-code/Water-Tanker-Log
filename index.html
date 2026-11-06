@@ -216,7 +216,7 @@
         }
 
         .photo-box-title {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--brand-navy);
             text-transform: uppercase;
@@ -467,7 +467,7 @@
                         <div class="photos-container">
                             <!-- Photo 1: Top Water Level -->
                             <div class="photo-box">
-                                <div class="photo-box-title">Top Water Level (Pre-Unload)<br><small>4R (4" × 6" / 102 × 152 mm)</small></div>
+                                <div class="photo-box-title">TOP WATER LEVEL (PRE-UNLOAD)</div>
                                 <div class="photo-frame" id="${cardId}-p1-frame">
                                     <div class="photo-placeholder">📷 Click 'Snap Photo' to capture</div>
                                 </div>
@@ -481,7 +481,7 @@
 
                             <!-- Photo 2: Tanker Valve Open -->
                             <div class="photo-box">
-                                <div class="photo-box-title">Tanker Valve Open (Post-Unload)<br><small>4R (4" × 6" / 102 × 152 mm)</small></div>
+                                <div class="photo-box-title">TANKER VALVE OPEN (POST-UNLOAD)</div>
                                 <div class="photo-frame" id="${cardId}-p2-frame">
                                     <div class="photo-placeholder">📷 Click 'Snap Photo' to capture</div>
                                 </div>
@@ -546,7 +546,7 @@
                     const canvas = document.createElement("canvas");
                     const ctx = canvas.getContext("2d");
 
-                    // 4R Standard Resolution
+                    // Standard High Quality Canvas Output
                     canvas.width = 1500;
                     canvas.height = 1000;
 
@@ -670,7 +670,7 @@
             const filename = `Water_Tanker_Register_${dateVal}.pdf`;
 
             const opt = {
-                margin:       [6, 8, 6, 8], // Balanced 8mm side margins for perfect centering
+                margin:       [6, 8, 6, 8],
                 filename:     filename,
                 image:        { type: 'jpeg', quality: 0.88 },
                 html2canvas:  { 
