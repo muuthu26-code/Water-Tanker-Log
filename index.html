@@ -304,26 +304,41 @@
       padding: 5px;
     }
 
+    /* Dual Action Buttons */
     .photo-actions {
+      display: flex;
+      gap: 4px;
       margin-top: 8px;
       width: 100%;
     }
 
     .upload-label {
-      display: block;
-      width: 100%;
-      padding: 6px 0;
-      background-color: var(--primary-navy);
-      color: #ffffff;
-      font-size: 11px;
+      flex: 1;
+      padding: 6px 2px;
+      font-size: 10px;
       font-weight: 600;
       text-align: center;
       border-radius: 4px;
       cursor: pointer;
+      display: block;
     }
 
-    .upload-label:hover {
+    .btn-snap {
+      background-color: var(--primary-navy);
+      color: #ffffff;
+    }
+
+    .btn-snap:hover {
       background-color: #122440;
+    }
+
+    .btn-gallery {
+      background-color: #475569;
+      color: #ffffff;
+    }
+
+    .btn-gallery:hover {
+      background-color: #334155;
     }
 
     .file-input {
@@ -496,28 +511,62 @@
       <div class="photo-grid">
         <div class="photo-card">
           <div class="photo-card-title">Tanker 1 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-1"><div class="photo-placeholder" id="ph-p7-1">Upload Top Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p7-1" class="upload-label">Upload Photo</label><input type="file" id="file-p7-1" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 1)"></div>
+          <div class="photo-frame"><img id="img-p7-1"><div class="photo-placeholder" id="ph-p7-1">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p7-1" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p7-1" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 1)">
+            
+            <label for="file-p7-1" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p7-1" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 1)">
+          </div>
         </div>
+
         <div class="photo-card">
           <div class="photo-card-title">Tanker 2 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-2"><div class="photo-placeholder" id="ph-p7-2">Upload Top Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p7-2" class="upload-label">Upload Photo</label><input type="file" id="file-p7-2" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 2)"></div>
+          <div class="photo-frame"><img id="img-p7-2"><div class="photo-placeholder" id="ph-p7-2">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p7-2" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p7-2" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 2)">
+            
+            <label for="file-p7-2" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p7-2" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 2)">
+          </div>
         </div>
+
         <div class="photo-card">
           <div class="photo-card-title">Tanker 3 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-3"><div class="photo-placeholder" id="ph-p7-3">Upload Top Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p7-3" class="upload-label">Upload Photo</label><input type="file" id="file-p7-3" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 3)"></div>
+          <div class="photo-frame"><img id="img-p7-3"><div class="photo-placeholder" id="ph-p7-3">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p7-3" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p7-3" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 3)">
+            
+            <label for="file-p7-3" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p7-3" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 3)">
+          </div>
         </div>
+
         <div class="photo-card">
           <div class="photo-card-title">Tanker 4 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-4"><div class="photo-placeholder" id="ph-p7-4">Upload Top Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p7-4" class="upload-label">Upload Photo</label><input type="file" id="file-p7-4" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 4)"></div>
+          <div class="photo-frame"><img id="img-p7-4"><div class="photo-placeholder" id="ph-p7-4">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p7-4" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p7-4" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 4)">
+            
+            <label for="file-p7-4" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p7-4" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 4)">
+          </div>
         </div>
+
         <div class="photo-card">
           <div class="photo-card-title">Tanker 5 - Top Level</div>
-          <div class="photo-frame"><img id="img-p7-5"><div class="photo-placeholder" id="ph-p7-5">Upload Top Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p7-5" class="upload-label">Upload Photo</label><input type="file" id="file-p7-5" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 5)"></div>
+          <div class="photo-frame"><img id="img-p7-5"><div class="photo-placeholder" id="ph-p7-5">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p7-5" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p7-5" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p7', 5)">
+            
+            <label for="file-p7-5" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p7-5" class="file-input" accept="image/*" onchange="processImage(this, 'p7', 5)">
+          </div>
         </div>
       </div>
 
@@ -529,28 +578,62 @@
       <div class="photo-grid">
         <div class="photo-card">
           <div class="photo-card-title">Tanker 1 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-1"><div class="photo-placeholder" id="ph-p8-1">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p8-1" class="upload-label">Upload Photo</label><input type="file" id="file-p8-1" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 1)"></div>
+          <div class="photo-frame"><img id="img-p8-1"><div class="photo-placeholder" id="ph-p8-1">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p8-1" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p8-1" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 1)">
+            
+            <label for="file-p8-1" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p8-1" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 1)">
+          </div>
         </div>
+
         <div class="photo-card">
           <div class="photo-card-title">Tanker 2 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-2"><div class="photo-placeholder" id="ph-p8-2">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p8-2" class="upload-label">Upload Photo</label><input type="file" id="file-p8-2" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 2)"></div>
+          <div class="photo-frame"><img id="img-p8-2"><div class="photo-placeholder" id="ph-p8-2">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p8-2" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p8-2" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 2)">
+            
+            <label for="file-p8-2" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p8-2" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 2)">
+          </div>
         </div>
+
         <div class="photo-card">
           <div class="photo-card-title">Tanker 3 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-3"><div class="photo-placeholder" id="ph-p8-3">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p8-3" class="upload-label">Upload Photo</label><input type="file" id="file-p8-3" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 3)"></div>
+          <div class="photo-frame"><img id="img-p8-3"><div class="photo-placeholder" id="ph-p8-3">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p8-3" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p8-3" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 3)">
+            
+            <label for="file-p8-3" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p8-3" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 3)">
+          </div>
         </div>
+
         <div class="photo-card">
           <div class="photo-card-title">Tanker 4 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-4"><div class="photo-placeholder" id="ph-p8-4">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p8-4" class="upload-label">Upload Photo</label><input type="file" id="file-p8-4" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 4)"></div>
+          <div class="photo-frame"><img id="img-p8-4"><div class="photo-placeholder" id="ph-p8-4">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p8-4" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p8-4" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 4)">
+            
+            <label for="file-p8-4" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p8-4" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 4)">
+          </div>
         </div>
+
         <div class="photo-card">
           <div class="photo-card-title">Tanker 5 - Bottom Level</div>
-          <div class="photo-frame"><img id="img-p8-5"><div class="photo-placeholder" id="ph-p8-5">Upload Bottom Photo<br>(Postcard 3:2)</div></div>
-          <div class="photo-actions"><label for="file-p8-5" class="upload-label">Upload Photo</label><input type="file" id="file-p8-5" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 5)"></div>
+          <div class="photo-frame"><img id="img-p8-5"><div class="photo-placeholder" id="ph-p8-5">Postcard (3:2)</div></div>
+          <div class="photo-actions">
+            <label for="cam-p8-5" class="upload-label btn-snap">📷 Snap</label>
+            <input type="file" id="cam-p8-5" class="file-input" accept="image/*" capture="environment" onchange="processImage(this, 'p8', 5)">
+            
+            <label for="file-p8-5" class="upload-label btn-gallery">📁 Upload</label>
+            <input type="file" id="file-p8-5" class="file-input" accept="image/*" onchange="processImage(this, 'p8', 5)">
+          </div>
         </div>
       </div>
 
